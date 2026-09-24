@@ -3,16 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>⚡ CyberAudit Pro — Полный аудит системы</title>
+<title>⚡ CyberAudit Pro v3 — Полный аудит системы</title>
 <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 :root{
---bg1:#0a0a0f;--bg2:#1a1a2e;--bg-card:#0d0d1a;--bg-card2:#12121f;
+--bg1:#0a0a0f;--bg2:#1a1a2e;--bgc:#0d0d1a;--bgc2:#12121f;
 --cyan:#00f0ff;--pink:#ff00aa;--green:#00ff88;--yellow:#ffcc00;
 --purple:#aa00ff;--red:#ff3355;--orange:#ff8800;
---text:#e0e0f0;--text-dim:#6a6a8a;--border:#1e1e3a;
+--text:#e0e0f0;--dim:#6a6a8a;--border:#1e1e3a;
 --fm:'Share Tech Mono','Courier New',monospace;
 --ft:'Orbitron',sans-serif;
 }
@@ -20,1341 +20,1146 @@ html{scroll-behavior:smooth}
 body{background:linear-gradient(135deg,var(--bg1),var(--bg2));color:var(--text);font-family:var(--fm);min-height:100vh;overflow-x:hidden}
 body::after{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,240,255,.012) 2px,rgba(0,240,255,.012) 4px);pointer-events:none;z-index:9999}
 
-.header{text-align:center;padding:30px 20px 15px;position:relative}
-.header h1{font-family:var(--ft);font-size:clamp(1.6rem,4vw,3rem);font-weight:900;background:linear-gradient(90deg,var(--cyan),var(--pink),var(--cyan));background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:shimmer 3s linear infinite}
-.header .sub{font-size:.8rem;color:var(--text-dim);margin-top:4px;letter-spacing:3px;text-transform:uppercase}
-@keyframes shimmer{0%{background-position:0% center}100%{background-position:200% center}}
+.header{text-align:center;padding:24px 20px 12px}
+.header h1{font-family:var(--ft);font-size:clamp(1.4rem,4vw,2.6rem);font-weight:900;background:linear-gradient(90deg,var(--cyan),var(--pink),var(--cyan));background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:shimmer 3s linear infinite}
+.header .sub{font-size:.75rem;color:var(--dim);margin-top:3px;letter-spacing:3px;text-transform:uppercase}
+@keyframes shimmer{0%{background-position:0%}100%{background-position:200%}}
 
-/* Navigation */
-.nav{display:flex;flex-wrap:wrap;justify-content:center;gap:4px;padding:8px 16px;position:sticky;top:0;z-index:100;background:rgba(10,10,15,.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
-.nav-btn{background:0 0;color:var(--text-dim);border:1px solid var(--border);padding:7px 13px;font-family:var(--fm);font-size:.75rem;cursor:pointer;border-radius:4px;transition:.3s;white-space:nowrap}
-.nav-btn:hover{color:var(--cyan);border-color:var(--cyan);box-shadow:0 0 10px rgba(0,240,255,.2)}
-.nav-btn.active{color:#fff;background:linear-gradient(135deg,rgba(0,240,255,.12),rgba(255,0,170,.12));border-color:var(--cyan);box-shadow:0 0 15px rgba(0,240,255,.25)}
+.nav{display:flex;flex-wrap:wrap;justify-content:center;gap:3px;padding:7px 12px;position:sticky;top:0;z-index:100;background:rgba(10,10,15,.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+.nav-b{background:0 0;color:var(--dim);border:1px solid var(--border);padding:6px 11px;font-family:var(--fm);font-size:.72rem;cursor:pointer;border-radius:4px;transition:.3s;white-space:nowrap}
+.nav-b:hover{color:var(--cyan);border-color:var(--cyan);box-shadow:0 0 8px rgba(0,240,255,.2)}
+.nav-b.act{color:#fff;background:linear-gradient(135deg,rgba(0,240,255,.12),rgba(255,0,170,.12));border-color:var(--cyan);box-shadow:0 0 12px rgba(0,240,255,.2)}
 
-.main{max-width:1140px;margin:0 auto;padding:16px}
-.pane{display:none;animation:fadeUp .4s ease}
-.pane.active{display:block}
-@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+.main{max-width:1140px;margin:0 auto;padding:14px}
+.pane{display:none;animation:fadeUp .35s ease}.pane.act{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
 
-/* Cards */
-.card{background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:22px;margin-bottom:16px;position:relative;overflow:hidden}
+.card{background:var(--bgc);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:14px;position:relative;overflow:hidden}
 .card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--cyan),var(--pink),var(--green))}
-.card-t{font-family:var(--ft);font-size:1.2rem;color:var(--cyan);margin-bottom:4px}
-.card-d{color:var(--text-dim);font-size:.8rem;margin-bottom:14px}
+.card-t{font-family:var(--ft);font-size:1.15rem;color:var(--cyan);margin-bottom:4px}
+.card-d{color:var(--dim);font-size:.78rem;margin-bottom:12px}
 
-/* Buttons */
-.btn{background:linear-gradient(135deg,rgba(0,240,255,.12),rgba(0,240,255,.04));color:var(--cyan);border:1px solid var(--cyan);padding:10px 22px;font-family:var(--fm);font-size:.85rem;cursor:pointer;border-radius:5px;transition:.3s;margin:3px;position:relative;overflow:hidden}
-.btn:hover:not(:disabled){background:rgba(0,240,255,.18);box-shadow:0 0 20px rgba(0,240,255,.3);transform:translateY(-1px)}
-.btn:disabled{opacity:.35;cursor:not-allowed}
-.btn-big{padding:16px 40px;font-size:1.1rem;font-family:var(--ft);font-weight:700;letter-spacing:1px}
-.btn-pink{color:var(--pink);border-color:var(--pink);background:linear-gradient(135deg,rgba(255,0,170,.12),rgba(255,0,170,.04))}
-.btn-pink:hover:not(:disabled){background:rgba(255,0,170,.18);box-shadow:0 0 20px rgba(255,0,170,.3)}
-.btn-green{color:var(--green);border-color:var(--green);background:linear-gradient(135deg,rgba(0,255,136,.12),rgba(0,255,136,.04))}
-.btn-green:hover:not(:disabled){background:rgba(0,255,136,.18);box-shadow:0 0 20px rgba(0,255,136,.3)}
-.btn-sm{padding:6px 13px;font-size:.75rem}
+.btn{background:linear-gradient(135deg,rgba(0,240,255,.1),rgba(0,240,255,.03));color:var(--cyan);border:1px solid var(--cyan);padding:9px 20px;font-family:var(--fm);font-size:.82rem;cursor:pointer;border-radius:5px;transition:.3s;margin:3px}
+.btn:hover:not(:disabled){background:rgba(0,240,255,.16);box-shadow:0 0 18px rgba(0,240,255,.25);transform:translateY(-1px)}
+.btn:disabled{opacity:.3;cursor:not-allowed}
+.btn-big{padding:15px 38px;font-size:1.05rem;font-family:var(--ft);font-weight:700;letter-spacing:1px}
+.btn-pink{color:var(--pink);border-color:var(--pink);background:linear-gradient(135deg,rgba(255,0,170,.1),rgba(255,0,170,.03))}
+.btn-green{color:var(--green);border-color:var(--green);background:linear-gradient(135deg,rgba(0,255,136,.1),rgba(0,255,136,.03))}
+.btn-sm{padding:5px 11px;font-size:.72rem}
 
-/* Progress */
-.prog{width:100%;height:6px;background:var(--border);border-radius:3px;overflow:hidden;margin:10px 0;display:none}
+.mega-prog{width:100%;height:10px;background:var(--border);border-radius:5px;overflow:hidden;margin:14px 0}
+.mega-fill{height:100%;background:linear-gradient(90deg,var(--green),var(--cyan),var(--pink),var(--purple));background-size:300% 100%;border-radius:5px;transition:width .4s;box-shadow:0 0 10px var(--cyan);width:0%;animation:pa 2s linear infinite}
+@keyframes pa{0%{background-position:0%}100%{background-position:300%}}
+
+.prog{width:100%;height:5px;background:var(--border);border-radius:3px;overflow:hidden;margin:8px 0;display:none}
 .prog.vis{display:block}
-.prog-fill{height:100%;background:linear-gradient(90deg,var(--cyan),var(--pink));border-radius:3px;transition:width .3s;box-shadow:0 0 8px var(--cyan);width:0%}
+.prog-f{height:100%;background:linear-gradient(90deg,var(--cyan),var(--pink));border-radius:3px;transition:width .3s;width:0%}
 
-/* Big progress for auto-run */
-.mega-prog{width:100%;height:10px;background:var(--border);border-radius:5px;overflow:hidden;margin:16px 0}
-.mega-prog-fill{height:100%;background:linear-gradient(90deg,var(--green),var(--cyan),var(--pink),var(--purple));background-size:300% 100%;border-radius:5px;transition:width .4s;box-shadow:0 0 12px var(--cyan);width:0%;animation:progAnim 2s linear infinite}
-@keyframes progAnim{0%{background-position:0% 50%}100%{background-position:300% 50%}}
-
-.status{font-size:.8rem;color:var(--text-dim);margin:6px 0}
-.status .v{color:var(--cyan)}
-.spinner{display:inline-block;width:16px;height:16px;border:2px solid var(--border);border-top-color:var(--cyan);border-radius:50%;animation:spin .7s linear infinite;vertical-align:middle;margin-right:6px}
+.st{font-size:.78rem;color:var(--dim);margin:5px 0}.st .v{color:var(--cyan)}
+.spinner{display:inline-block;width:14px;height:14px;border:2px solid var(--border);border-top-color:var(--cyan);border-radius:50%;animation:spin .7s linear infinite;vertical-align:middle;margin-right:5px}
 @keyframes spin{to{transform:rotate(360deg)}}
 
-/* Results */
-.res{margin-top:12px;padding:14px;background:rgba(0,0,0,.3);border:1px solid var(--border);border-radius:6px;display:none}
+.res{margin-top:10px;padding:12px;background:rgba(0,0,0,.3);border:1px solid var(--border);border-radius:5px;display:none}
 .res.vis{display:block}
 
-/* Tables */
 .tbl{width:100%;border-collapse:collapse}
 .tbl tr{border-bottom:1px solid rgba(255,255,255,.04)}
-.tbl td{padding:8px 10px;font-size:.8rem}
-.tbl td:first-child{color:var(--text-dim);width:42%}
+.tbl td{padding:7px 9px;font-size:.78rem}
+.tbl td:first-child{color:var(--dim);width:42%}
 .tbl td:last-child{color:var(--cyan)}
-.tbl-alt tr:nth-child(even){background:rgba(0,240,255,.02)}
 
-/* Score badges */
-.badge{display:inline-block;padding:5px 14px;border-radius:16px;font-family:var(--ft);font-size:.85rem;font-weight:700;margin:6px 2px}
-.b-low{background:rgba(255,51,85,.15);color:var(--red);border:1px solid var(--red)}
-.b-mid{background:rgba(255,204,0,.15);color:var(--yellow);border:1px solid var(--yellow)}
-.b-high{background:rgba(0,255,136,.15);color:var(--green);border:1px solid var(--green)}
-.b-ultra{background:rgba(0,240,255,.15);color:var(--cyan);border:1px solid var(--cyan)}
-.b-god{background:rgba(170,0,255,.15);color:var(--purple);border:1px solid var(--purple)}
+.ti{display:flex;align-items:center;gap:10px;padding:8px 12px;border:1px solid var(--border);border-radius:5px;margin:3px 0;background:rgba(0,0,0,.2);transition:.3s}
+.ti.run{border-color:var(--cyan);box-shadow:0 0 10px rgba(0,240,255,.12)}
+.ti.done{border-color:var(--green)}
+.ti.err{border-color:var(--red)}
+.ti-i{font-size:1.2rem;min-width:28px;text-align:center}
+.ti-n{flex:1;font-size:.8rem}
+.ti-s{font-size:.72rem;color:var(--dim);min-width:90px;text-align:right}
+.ti-v{font-family:var(--ft);font-size:.85rem;color:var(--cyan);min-width:80px;text-align:right}
 
-/* Charts */
-.chart-c{position:relative;max-width:100%;margin:14px 0}
+.chart-c{position:relative;max-width:100%;margin:12px 0}
 .chart-c canvas{max-height:280px}
 
-/* Test items in auto mode */
-.test-item{display:flex;align-items:center;gap:12px;padding:10px 14px;border:1px solid var(--border);border-radius:6px;margin:4px 0;background:rgba(0,0,0,.2);transition:.3s}
-.test-item.running{border-color:var(--cyan);box-shadow:0 0 12px rgba(0,240,255,.15)}
-.test-item.done{border-color:var(--green)}
-.test-item.error{border-color:var(--red)}
-.test-icon{font-size:1.3rem;min-width:30px;text-align:center}
-.test-name{flex:1;font-size:.85rem}
-.test-status{font-size:.75rem;color:var(--text-dim);min-width:100px;text-align:right}
-.test-score{font-family:var(--ft);font-size:.9rem;color:var(--cyan);min-width:80px;text-align:right}
+.games-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px;margin:14px 0}
+.gc{background:var(--bgc2);border:1px solid var(--border);border-radius:8px;overflow:hidden;transition:.3s}
+.gc:hover{border-color:var(--cyan);box-shadow:0 0 12px rgba(0,240,255,.12);transform:translateY(-2px)}
+.gc-img{width:100%;height:110px;display:flex;align-items:center;justify-content:center;font-size:2.3rem;border-bottom:1px solid var(--border);background:linear-gradient(135deg,#1a1a2e,#0a0a0f)}
+.gc-info{padding:10px}
+.gc-name{font-family:var(--ft);font-size:.8rem;color:var(--text);margin-bottom:6px}
+.gc-row{display:flex;justify-content:space-between;align-items:center;margin:2px 0}
+.gc-lbl{font-size:.68rem;color:var(--dim)}
+.gc-fps{font-family:var(--ft);font-size:.85rem;font-weight:700}
+.fps-bar{height:4px;background:var(--border);border-radius:2px;margin-top:2px;overflow:hidden}
+.fps-fill{height:100%;border-radius:2px;transition:width .6s}
 
-/* Game FPS cards */
-.games-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;margin:16px 0}
-.game-card{background:var(--bg-card2);border:1px solid var(--border);border-radius:8px;overflow:hidden;transition:.3s}
-.game-card:hover{border-color:var(--cyan);box-shadow:0 0 15px rgba(0,240,255,.15);transform:translateY(-2px)}
-.game-img{width:100%;height:120px;object-fit:cover;background:linear-gradient(135deg,#1a1a2e,#0a0a0f);display:flex;align-items:center;justify-content:center;font-size:2.5rem;border-bottom:1px solid var(--border)}
-.game-info{padding:12px}
-.game-name{font-family:var(--ft);font-size:.85rem;color:var(--text);margin-bottom:8px}
-.game-fps-row{display:flex;justify-content:space-between;align-items:center;margin:3px 0}
-.game-fps-label{font-size:.7rem;color:var(--text-dim)}
-.game-fps-val{font-family:var(--ft);font-size:.9rem;font-weight:700}
-.fps-bar{height:4px;background:var(--border);border-radius:2px;margin-top:3px;overflow:hidden}
-.fps-bar-fill{height:100%;border-radius:2px;transition:width .6s}
+.vbox{text-align:center;padding:28px;margin:18px 0;border:2px solid var(--border);border-radius:12px;background:rgba(0,0,0,.3)}
+.v-sc{font-family:var(--ft);font-size:3.2rem;font-weight:900;margin:8px 0}
+.v-cat{font-size:1.3rem;margin:6px 0}
+.v-desc{color:var(--dim);font-size:.82rem;max-width:500px;margin:10px auto}
 
-/* Verdict */
-.verdict-box{text-align:center;padding:30px;margin:20px 0;border:2px solid var(--border);border-radius:12px;background:rgba(0,0,0,.3)}
-.verdict-score{font-family:var(--ft);font-size:3.5rem;font-weight:900;margin:10px 0}
-.verdict-cat{font-size:1.4rem;margin:8px 0}
-.verdict-desc{color:var(--text-dim);font-size:.85rem;max-width:500px;margin:12px auto}
+.rg{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:9px;margin:12px 0}
+.ri{background:rgba(0,0,0,.3);border:1px solid var(--border);border-radius:6px;padding:12px;text-align:center}
+.ri-l{color:var(--dim);font-size:.68rem;margin-bottom:3px;text-transform:uppercase;letter-spacing:1px}
+.ri-v{font-family:var(--ft);font-size:1.2rem;color:var(--cyan)}
+.ri-s{font-size:.68rem;color:var(--dim);margin-top:2px}
 
-/* Report grid */
-.rep-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin:14px 0}
-.rep-item{background:rgba(0,0,0,.3);border:1px solid var(--border);border-radius:6px;padding:14px;text-align:center}
-.rep-label{color:var(--text-dim);font-size:.7rem;margin-bottom:4px;text-transform:uppercase;letter-spacing:1px}
-.rep-val{font-family:var(--ft);font-size:1.3rem;color:var(--cyan)}
-.rep-sub{font-size:.7rem;color:var(--text-dim);margin-top:2px}
+.sub-tabs{display:flex;gap:3px;margin-bottom:10px;flex-wrap:wrap}
+.sub-b{background:rgba(255,255,255,.03);color:var(--dim);border:1px solid var(--border);padding:4px 10px;font-family:var(--fm);font-size:.72rem;cursor:pointer;border-radius:4px;transition:.3s}
+.sub-b.act{color:var(--cyan);border-color:var(--cyan);background:rgba(0,240,255,.07)}
+.sp{display:none}.sp.act{display:block}
 
-/* Sub tabs */
-.sub-tabs{display:flex;gap:3px;margin-bottom:12px;flex-wrap:wrap}
-.sub-btn{background:rgba(255,255,255,.03);color:var(--text-dim);border:1px solid var(--border);padding:5px 12px;font-family:var(--fm);font-size:.75rem;cursor:pointer;border-radius:4px;transition:.3s}
-.sub-btn.active{color:var(--cyan);border-color:var(--cyan);background:rgba(0,240,255,.08)}
-.sub-pane{display:none}.sub-pane.active{display:block}
-
-/* Keyboard */
-.kb{display:flex;flex-direction:column;gap:3px;max-width:880px;margin:12px auto}
+.kb{display:flex;flex-direction:column;gap:3px;max-width:860px;margin:10px auto}
 .kb-r{display:flex;gap:3px;justify-content:center}
-.kb-k{min-width:36px;height:36px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:3px;font-size:.65rem;color:var(--text-dim);transition:.15s;user-select:none;padding:2px 4px}
-.kb-k.pressed{background:rgba(0,240,255,.3);border-color:var(--cyan);color:#fff;box-shadow:0 0 12px rgba(0,240,255,.5);transform:scale(.94)}
-.kb-k.was{background:rgba(0,255,136,.08);border-color:rgba(0,255,136,.4);color:var(--green)}
+.kb-k{min-width:34px;height:34px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:3px;font-size:.62rem;color:var(--dim);transition:.12s;user-select:none;padding:2px 3px}
+.kb-k.pr{background:rgba(0,240,255,.3);border-color:var(--cyan);color:#fff;box-shadow:0 0 10px rgba(0,240,255,.4);transform:scale(.94)}
+.kb-k.was{background:rgba(0,255,136,.07);border-color:rgba(0,255,136,.35);color:var(--green)}
 
-/* Mouse area */
-.m-area{width:100%;max-width:780px;height:260px;background:rgba(0,0,0,.4);border:1px solid var(--border);border-radius:4px;position:relative;cursor:crosshair;margin:10px auto;overflow:hidden}
+.m-area{width:100%;max-width:760px;height:240px;background:rgba(0,0,0,.4);border:1px solid var(--border);border-radius:4px;position:relative;cursor:crosshair;margin:8px auto;overflow:hidden}
 
-/* Fullscreen overlay */
-.fs-overlay{position:fixed;inset:0;z-index:10000;display:none;cursor:pointer;justify-content:center;align-items:flex-end;padding-bottom:30px}
-.fs-overlay.vis{display:flex}
-.fs-hint{background:rgba(0,0,0,.7);color:#fff;padding:8px 18px;border-radius:6px;font-family:var(--fm);font-size:.85rem}
+.fs-ov{position:fixed;inset:0;z-index:10000;display:none;cursor:pointer;justify-content:center;align-items:flex-end;padding-bottom:28px}
+.fs-ov.vis{display:flex}
+.fs-h{background:rgba(0,0,0,.7);color:#fff;padding:7px 16px;border-radius:6px;font-family:var(--fm);font-size:.8rem}
 
-/* Audio */
-.audio-viz{width:100%;height:100px;background:rgba(0,0,0,.3);border:1px solid var(--border);border-radius:4px}
-input[type=range]{-webkit-appearance:none;width:100%;height:5px;background:var(--border);border-radius:3px;outline:0;margin:10px 0}
-input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;background:var(--cyan);border-radius:50%;cursor:pointer;box-shadow:0 0 8px var(--cyan)}
+.audio-viz{width:100%;height:90px;background:rgba(0,0,0,.3);border:1px solid var(--border);border-radius:4px}
+input[type=range]{-webkit-appearance:none;width:100%;height:5px;background:var(--border);border-radius:3px;outline:0;margin:8px 0}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:15px;height:15px;background:var(--cyan);border-radius:50%;cursor:pointer;box-shadow:0 0 7px var(--cyan)}
 
-/* Responsive */
-@media(max-width:768px){
-.nav-btn{padding:5px 7px;font-size:.65rem}
-.card{padding:14px}
-.kb-k{min-width:24px;height:24px;font-size:.5rem}
-.games-grid{grid-template-columns:repeat(auto-fill,minmax(180px,1fr))}
-.verdict-score{font-size:2.5rem}
-}
+/* GPU benchmark canvases */
+.gpu-canvas{width:100%;max-height:350px;background:#000;border:1px solid var(--border);border-radius:6px;margin:8px 0}
 
-/* Glow animation for scanning */
-@keyframes scanGlow{
-0%,100%{box-shadow:0 0 5px rgba(0,240,255,.1)}
-50%{box-shadow:0 0 20px rgba(0,240,255,.3),0 0 40px rgba(0,240,255,.1)}
-}
+@keyframes scanGlow{0%,100%{box-shadow:0 0 5px rgba(0,240,255,.08)}50%{box-shadow:0 0 18px rgba(0,240,255,.25)}}
 .scanning{animation:scanGlow 1.5s ease-in-out infinite}
+
+@media(max-width:768px){
+.nav-b{padding:4px 6px;font-size:.62rem}
+.card{padding:12px}
+.kb-k{min-width:22px;height:22px;font-size:.48rem}
+.games-grid{grid-template-columns:1fr 1fr}
+.v-sc{font-size:2.2rem}
+}
 </style>
 </head>
 <body>
 
 <div class="header">
 <h1>⚡ CYBERAUDIT PRO</h1>
-<div class="sub">Полный технический аудит системы • v2.0</div>
+<div class="sub">Полный технический аудит • v3.0</div>
 </div>
 
 <nav class="nav" id="nav">
-<button class="nav-btn active" data-tab="auto">🚀 Авто-тест</button>
-<button class="nav-btn" data-tab="monitor">🖵 Монитор</button>
-<button class="nav-btn" data-tab="mouse">🖱️ Мышь</button>
-<button class="nav-btn" data-tab="keyboard">⌨️ Клавиатура</button>
-<button class="nav-btn" data-tab="audio">🔊 Аудио</button>
-<button class="nav-btn" data-tab="results">📊 Результаты</button>
+<button class="nav-b act" data-t="auto">🚀 Авто-тест</button>
+<button class="nav-b" data-t="monitor">🖵 Монитор</button>
+<button class="nav-b" data-t="mouse">🖱️ Мышь</button>
+<button class="nav-b" data-t="keyboard">⌨️ Клавиатура</button>
+<button class="nav-b" data-t="audio">🔊 Аудио</button>
+<button class="nav-b" data-t="results">📊 Результаты</button>
 </nav>
 
 <div class="main">
 
-<!-- ========== AUTO TEST ========== -->
-<div class="pane active" id="p-auto">
+<!-- AUTO TEST -->
+<div class="pane act" id="p-auto">
 <div class="card">
 <div class="card-t">🚀 Полный автоматический аудит</div>
-<div class="card-d">Запустите все тесты одной кнопкой. Система автоматически проверит CPU, GPU, RAM, сеть и другие параметры. По итогам — точный вердикт и прогноз FPS в играх.</div>
-<div style="text-align:center;margin:20px 0">
-<button class="btn btn-big" id="btnAutoRun" onclick="startAutoRun()">⚡ ЗАПУСТИТЬ ПОЛНЫЙ АУДИТ</button>
+<div class="card-d">Все автоматические тесты запускаются по одной кнопке. GPU тестируется реальным рендерингом WebGL. Видеокарта определяется через WebGL API и сопоставляется с базой реальных GPU для точного прогноза FPS.</div>
+<div style="text-align:center;margin:18px 0">
+<button class="btn btn-big" id="btnAuto" onclick="startAuto()">⚡ ЗАПУСТИТЬ ПОЛНЫЙ АУДИТ</button>
 </div>
-<div id="autoProgress" style="display:none">
-<div class="mega-prog"><div class="mega-prog-fill" id="autoProgFill"></div></div>
-<div class="status" id="autoStatus" style="text-align:center;font-size:.9rem"></div>
+<div id="autoP" style="display:none">
+<div class="mega-prog"><div class="mega-fill" id="autoFill"></div></div>
+<div class="st" id="autoSt" style="text-align:center;font-size:.85rem"></div>
 </div>
-<div id="autoTests" style="margin-top:14px"></div>
+<div id="autoItems"></div>
+<!-- GPU benchmark canvases rendered here visually -->
+<div id="gpuRenderArea"></div>
 </div>
 </div>
 
-<!-- ========== MONITOR ========== -->
+<!-- MONITOR -->
 <div class="pane" id="p-monitor">
 <div class="card">
-<div class="card-t">🖵 Интерактивные тесты монитора</div>
-<div class="card-d">Тесты, требующие визуальной оценки</div>
+<div class="card-t">🖵 Тесты монитора</div>
 <div class="sub-tabs">
-<button class="sub-btn active" onclick="subTab('mon',0,this)">Битые пиксели</button>
-<button class="sub-btn" onclick="subTab('mon',1,this)">Градиенты</button>
-<button class="sub-btn" onclick="subTab('mon',2,this)">Цветовые паттерны</button>
+<button class="sub-b act" onclick="subT('mon',0,this)">Битые пиксели</button>
+<button class="sub-b" onclick="subT('mon',1,this)">Градиенты</button>
+<button class="sub-b" onclick="subT('mon',2,this)">Паттерны</button>
 </div>
-<div class="sub-pane active" id="mon-0">
-<p style="font-size:.8rem;color:var(--text-dim);margin-bottom:10px">Экран заливается сплошным цветом. Осмотрите на наличие точек, которые не соответствуют цвету. Клик/пробел — следующий цвет, Esc — выход.</p>
-<button class="btn" onclick="startDeadPixel()">🔲 Полноэкранный тест</button>
+<div class="sp act" id="mon-0">
+<p style="font-size:.78rem;color:var(--dim);margin-bottom:8px">Заливка экрана сплошным цветом. Клик/пробел — следующий, Esc — выход.</p>
+<button class="btn" onclick="startDP()">🔲 Полноэкранный тест</button>
 </div>
-<div class="sub-pane" id="mon-1">
-<button class="btn" onclick="drawGradients()">🎨 Показать градиенты</button>
-<canvas id="gradCanvas" width="900" height="420" style="width:100%;max-height:420px;background:#000;border:1px solid var(--border);border-radius:4px;margin:10px 0;display:none"></canvas>
-<p id="gradHint" style="font-size:.75rem;color:var(--text-dim);display:none">Если все переходы плавные и без полос — монитор откалиброван правильно</p>
+<div class="sp" id="mon-1">
+<button class="btn" onclick="drawGrad()">🎨 Градиенты</button>
+<canvas id="gradCv" width="900" height="400" style="width:100%;max-height:400px;background:#000;border:1px solid var(--border);border-radius:4px;margin:8px 0;display:none"></canvas>
+<p id="gradH" style="font-size:.72rem;color:var(--dim);display:none">Плавные переходы = монитор откалиброван правильно</p>
 </div>
-<div class="sub-pane" id="mon-2">
-<button class="btn" onclick="drawPatterns()">🔳 Показать паттерны</button>
-<canvas id="patCanvas" width="900" height="420" style="width:100%;max-height:420px;background:#000;border:1px solid var(--border);border-radius:4px;margin:10px 0;display:none"></canvas>
+<div class="sp" id="mon-2">
+<button class="btn" onclick="drawPat()">🔳 Паттерны</button>
+<canvas id="patCv" width="900" height="400" style="width:100%;max-height:400px;background:#000;border:1px solid var(--border);border-radius:4px;margin:8px 0;display:none"></canvas>
 </div>
 </div>
 </div>
 
-<!-- ========== MOUSE ========== -->
+<!-- MOUSE -->
 <div class="pane" id="p-mouse">
 <div class="card">
-<div class="card-t">🖱️ Интерактивные тесты мыши</div>
+<div class="card-t">🖱️ Тесты мыши</div>
 <div class="sub-tabs">
-<button class="sub-btn active" onclick="subTab('mou',0,this)">Точность</button>
-<button class="sub-btn" onclick="subTab('mou',1,this)">Polling Rate</button>
-<button class="sub-btn" onclick="subTab('mou',2,this)">Клики</button>
-<button class="sub-btn" onclick="subTab('mou',3,this)">Скорость кликов</button>
+<button class="sub-b act" onclick="subT('mou',0,this)">Точность</button>
+<button class="sub-b" onclick="subT('mou',1,this)">Polling Rate</button>
+<button class="sub-b" onclick="subT('mou',2,this)">Клики</button>
+<button class="sub-b" onclick="subT('mou',3,this)">CPS</button>
 </div>
-<div class="sub-pane active" id="mou-0">
-<p style="font-size:.8rem;color:var(--text-dim);margin-bottom:8px">Проведите курсор из A в B по прямой. Чем меньше отклонение — тем лучше.</p>
-<button class="btn" id="btnMouseAcc" onclick="startMouseAcc()">▶ Начать</button>
-<div class="m-area" id="accArea" style="display:none"></div>
-<div class="res" id="accRes"></div>
+<div class="sp act" id="mou-0">
+<p style="font-size:.78rem;color:var(--dim);margin-bottom:6px">Проведите из A в B по прямой.</p>
+<button class="btn" onclick="startMouseAcc()">▶ Начать</button>
+<div class="m-area" id="accA" style="display:none"></div>
+<div class="res" id="accR"></div>
 </div>
-<div class="sub-pane" id="mou-1">
-<p style="font-size:.8rem;color:var(--text-dim);margin-bottom:8px">Быстро двигайте мышью в области ниже 3 секунды.</p>
-<button class="btn" id="btnPoll" onclick="startPolling()">▶ Начать</button>
-<div class="m-area" id="pollArea" style="display:none"></div>
-<div class="prog" id="pollProg"><div class="prog-fill" id="pollProgFill"></div></div>
-<div class="res" id="pollRes"></div>
+<div class="sp" id="mou-1">
+<p style="font-size:.78rem;color:var(--dim);margin-bottom:6px">Быстро двигайте мышью 3 секунды.</p>
+<button class="btn" id="btnPoll" onclick="startPoll()">▶ Начать</button>
+<div class="m-area" id="pollA" style="display:none"></div>
+<div class="prog" id="pollP"><div class="prog-f" id="pollF"></div></div>
+<div class="res" id="pollR"></div>
 </div>
-<div class="sub-pane" id="mou-2">
-<p style="font-size:.8rem;color:var(--text-dim);margin-bottom:8px">Двойной клик: нажмите дважды. Залипание: зажмите и удерживайте.</p>
-<button class="btn" id="btnClick" onmousedown="clickDown()" onmouseup="clickUp()">Кликните / Зажмите</button>
-<div class="res" id="clickRes"></div>
+<div class="sp" id="mou-2">
+<p style="font-size:.78rem;color:var(--dim);margin-bottom:6px">Двойной клик или зажмите для теста залипания.</p>
+<button class="btn" onmousedown="clkD()" onmouseup="clkU()">Кликните/Зажмите</button>
+<div class="res" id="clkR"></div>
 </div>
-<div class="sub-pane" id="mou-3">
-<p style="font-size:.8rem;color:var(--text-dim);margin-bottom:8px">Нажимайте кнопку как можно быстрее в течение 10 секунд!</p>
-<button class="btn btn-pink" id="btnCps" onclick="startCps()">▶ Тест скорости кликов</button>
-<div class="prog" id="cpsProg"><div class="prog-fill" id="cpsProgFill"></div></div>
-<div class="res" id="cpsRes"></div>
+<div class="sp" id="mou-3">
+<p style="font-size:.78rem;color:var(--dim);margin-bottom:6px">Кликайте как можно быстрее 10 секунд!</p>
+<button class="btn btn-pink" id="btnCps" onclick="startCps()">▶ CPS тест</button>
+<div class="prog" id="cpsP"><div class="prog-f" id="cpsF"></div></div>
+<div class="res" id="cpsR"></div>
 </div>
 </div>
 </div>
 
-<!-- ========== KEYBOARD ========== -->
+<!-- KEYBOARD -->
 <div class="pane" id="p-keyboard">
 <div class="card">
 <div class="card-t">⌨️ Тест клавиатуры</div>
-<div class="card-d">Нажимайте клавиши — они подсветятся на раскладке</div>
-<div class="status">Нажатий: <span class="v" id="kCnt">0</span> | Зажато: <span class="v" id="kHeld">—</span></div>
-<div class="status">key=<span class="v" id="kKey">—</span> code=<span class="v" id="kCode">—</span> keyCode=<span class="v" id="kKC">—</span></div>
-<div id="kSticky" style="color:var(--red);font-size:.8rem;display:none"></div>
-<div class="kb" id="kbLayout"></div>
+<div class="st">Нажатий: <span class="v" id="kCnt">0</span> | Зажато: <span class="v" id="kH">—</span></div>
+<div class="st">key=<span class="v" id="kK">—</span> code=<span class="v" id="kC">—</span> keyCode=<span class="v" id="kKC">—</span></div>
+<div id="kSt" style="color:var(--red);font-size:.78rem;display:none"></div>
+<div class="kb" id="kbL"></div>
 </div>
 </div>
 
-<!-- ========== AUDIO ========== -->
+<!-- AUDIO -->
 <div class="pane" id="p-audio">
 <div class="card">
 <div class="card-t">🔊 Тест аудио</div>
 <div class="sub-tabs">
-<button class="sub-btn active" onclick="subTab('aud',0,this)">Каналы</button>
-<button class="sub-btn" onclick="subTab('aud',1,this)">Генератор частот</button>
+<button class="sub-b act" onclick="subT('aud',0,this)">Каналы</button>
+<button class="sub-b" onclick="subT('aud',1,this)">Частоты</button>
 </div>
-<div class="sub-pane active" id="aud-0">
-<div style="display:flex;gap:6px;flex-wrap:wrap;margin:10px 0">
-<button class="btn btn-sm" onclick="playChannel(-1)">◀ Левый</button>
-<button class="btn btn-sm btn-green" onclick="playChannel(0)">◀▶ Оба</button>
-<button class="btn btn-sm btn-pink" onclick="playChannel(1)">Правый ▶</button>
-<button class="btn btn-sm" onclick="stopAudio()" style="color:var(--yellow);border-color:var(--yellow)">⏹ Стоп</button>
+<div class="sp act" id="aud-0">
+<div style="display:flex;gap:5px;flex-wrap:wrap;margin:8px 0">
+<button class="btn btn-sm" onclick="playCh(-1)">◀ Лев</button>
+<button class="btn btn-sm btn-green" onclick="playCh(0)">◀▶ Оба</button>
+<button class="btn btn-sm btn-pink" onclick="playCh(1)">Прав ▶</button>
+<button class="btn btn-sm" onclick="stopA()" style="color:var(--yellow);border-color:var(--yellow)">⏹</button>
 </div>
-<canvas id="vizCanvas1" class="audio-viz"></canvas>
+<canvas id="viz1" class="audio-viz"></canvas>
 </div>
-<div class="sub-pane" id="aud-1">
-<div style="margin:10px 0">
-<label style="font-size:.8rem;color:var(--text-dim)">Частота: <span id="freqDisp" style="color:var(--cyan)">440 Hz — A4</span></label>
-<input type="range" id="freqSlider" min="0" max="1000" value="440" oninput="updateFreq(this.value)">
-</div>
-<div style="display:flex;gap:6px">
-<button class="btn btn-sm btn-green" onclick="playFreq()">▶ Play</button>
-<button class="btn btn-sm" onclick="stopAudio()" style="color:var(--yellow);border-color:var(--yellow)">⏹ Стоп</button>
-</div>
-<canvas id="vizCanvas2" class="audio-viz" style="margin-top:10px"></canvas>
+<div class="sp" id="aud-1">
+<div style="margin:8px 0"><label style="font-size:.78rem;color:var(--dim)">Частота: <span id="fD" style="color:var(--cyan)">440 Hz — A4</span></label>
+<input type="range" id="fS" min="0" max="1000" value="440" oninput="updF(this.value)"></div>
+<div style="display:flex;gap:5px"><button class="btn btn-sm btn-green" onclick="playF()">▶</button>
+<button class="btn btn-sm" onclick="stopA()" style="color:var(--yellow);border-color:var(--yellow)">⏹</button></div>
+<canvas id="viz2" class="audio-viz" style="margin-top:8px"></canvas>
 </div>
 </div>
 </div>
 
-<!-- ========== RESULTS ========== -->
+<!-- RESULTS -->
 <div class="pane" id="p-results">
 <div class="card">
 <div class="card-t">📊 Результаты аудита</div>
-<div class="card-d">Запустите полный автоматический аудит для получения результатов</div>
-<div id="resultsContent">
-<div style="text-align:center;padding:40px;color:var(--text-dim)">
-<div style="font-size:3rem;margin-bottom:12px">🔒</div>
-Сначала запустите полный аудит на вкладке «🚀 Авто-тест»
-</div>
+<div id="resC">
+<div style="text-align:center;padding:36px;color:var(--dim)">
+<div style="font-size:2.8rem;margin-bottom:10px">🔒</div>Сначала запустите аудит на вкладке «🚀 Авто-тест»</div>
 </div>
 </div>
 </div>
 
 </div>
 
-<!-- Dead pixel overlay -->
-<div class="fs-overlay" id="dpOverlay">
-<div class="fs-hint" id="dpHint">Клик/Пробел — след. цвет | Esc — выход</div>
-</div>
+<div class="fs-ov" id="dpOv"><div class="fs-h">Клик/Пробел → след. цвет | Esc → выход</div></div>
 
 <script>
-// ===================================================================
+// ===============================================================
 // GLOBALS
-// ===================================================================
-const R={};// test results
+// ===============================================================
+const R = {};
 let audioCtx=null,curOsc=null,curGain=null,analyser=null,audioAF=null;
 
-// ===================================================================
+// ===============================================================
+// GPU DATABASE - Real GPU performance tiers
+// Maps WebGL renderer strings to performance multipliers
+// Base multiplier 1.0 = GTX 1060 level performance
+// ===============================================================
+const GPU_DB = [
+  // NVIDIA - from low to high
+  {patterns:['GT 710','GT 720','GT 730'],name:'GT 7xx',tier:0.15},
+  {patterns:['GT 1030','GT 1010'],name:'GT 1030',tier:0.25},
+  {patterns:['GTX 750','GTX 760'],name:'GTX 750/760',tier:0.35},
+  {patterns:['GTX 950','GTX 960'],name:'GTX 950/960',tier:0.5},
+  {patterns:['GTX 970'],name:'GTX 970',tier:0.7},
+  {patterns:['GTX 980 Ti'],name:'GTX 980 Ti',tier:0.85},
+  {patterns:['GTX 980'],name:'GTX 980',tier:0.78},
+  {patterns:['GTX 1050 Ti'],name:'GTX 1050 Ti',tier:0.55},
+  {patterns:['GTX 1050'],name:'GTX 1050',tier:0.45},
+  {patterns:['GTX 1060'],name:'GTX 1060',tier:1.0},
+  {patterns:['GTX 1070 Ti'],name:'GTX 1070 Ti',tier:1.25},
+  {patterns:['GTX 1070'],name:'GTX 1070',tier:1.15},
+  {patterns:['GTX 1080 Ti'],name:'GTX 1080 Ti',tier:1.55},
+  {patterns:['GTX 1080'],name:'GTX 1080',tier:1.35},
+  {patterns:['GTX 1650 Super'],name:'GTX 1650 Super',tier:0.85},
+  {patterns:['GTX 1650 Ti'],name:'GTX 1650 Ti',tier:0.75},
+  {patterns:['GTX 1650'],name:'GTX 1650',tier:0.65},
+  {patterns:['GTX 1660 Super'],name:'GTX 1660 Super',tier:1.05},
+  {patterns:['GTX 1660 Ti'],name:'GTX 1660 Ti',tier:1.05},
+  {patterns:['GTX 1660'],name:'GTX 1660',tier:0.95},
+  {patterns:['RTX 2060 Super'],name:'RTX 2060 Super',tier:1.35},
+  {patterns:['RTX 2060'],name:'RTX 2060',tier:1.2},
+  {patterns:['RTX 2070 Super'],name:'RTX 2070 Super',tier:1.55},
+  {patterns:['RTX 2070'],name:'RTX 2070',tier:1.4},
+  {patterns:['RTX 2080 Super'],name:'RTX 2080 Super',tier:1.7},
+  {patterns:['RTX 2080 Ti'],name:'RTX 2080 Ti',tier:1.85},
+  {patterns:['RTX 2080'],name:'RTX 2080',tier:1.65},
+  {patterns:['RTX 3050'],name:'RTX 3050',tier:1.0},
+  {patterns:['RTX 3060 Ti'],name:'RTX 3060 Ti',tier:1.55},
+  {patterns:['RTX 3060'],name:'RTX 3060',tier:1.3},
+  {patterns:['RTX 3070 Ti'],name:'RTX 3070 Ti',tier:1.75},
+  {patterns:['RTX 3070'],name:'RTX 3070',tier:1.65},
+  {patterns:['RTX 3080 Ti'],name:'RTX 3080 Ti',tier:2.1},
+  {patterns:['RTX 3080'],name:'RTX 3080',tier:2.0},
+  {patterns:['RTX 3090 Ti'],name:'RTX 3090 Ti',tier:2.25},
+  {patterns:['RTX 3090'],name:'RTX 3090',tier:2.15},
+  {patterns:['RTX 4060 Ti'],name:'RTX 4060 Ti',tier:1.7},
+  {patterns:['RTX 4060'],name:'RTX 4060',tier:1.45},
+  {patterns:['RTX 4070 Super'],name:'RTX 4070 Super',tier:2.1},
+  {patterns:['RTX 4070 Ti Super'],name:'RTX 4070 Ti Super',tier:2.3},
+  {patterns:['RTX 4070 Ti'],name:'RTX 4070 Ti',tier:2.15},
+  {patterns:['RTX 4070'],name:'RTX 4070',tier:1.9},
+  {patterns:['RTX 4080 Super'],name:'RTX 4080 Super',tier:2.55},
+  {patterns:['RTX 4080'],name:'RTX 4080',tier:2.45},
+  {patterns:['RTX 4090'],name:'RTX 4090',tier:3.0},
+  {patterns:['RTX 5070 Ti'],name:'RTX 5070 Ti',tier:2.6},
+  {patterns:['RTX 5070'],name:'RTX 5070',tier:2.3},
+  {patterns:['RTX 5080'],name:'RTX 5080',tier:2.8},
+  {patterns:['RTX 5090'],name:'RTX 5090',tier:3.5},
+  // AMD
+  {patterns:['RX 550','RX 560'],name:'RX 550/560',tier:0.35},
+  {patterns:['RX 570'],name:'RX 570',tier:0.7},
+  {patterns:['RX 580'],name:'RX 580',tier:0.8},
+  {patterns:['RX 590'],name:'RX 590',tier:0.85},
+  {patterns:['RX 5500'],name:'RX 5500 XT',tier:0.8},
+  {patterns:['RX 5600'],name:'RX 5600 XT',tier:1.15},
+  {patterns:['RX 5700 XT'],name:'RX 5700 XT',tier:1.4},
+  {patterns:['RX 5700'],name:'RX 5700',tier:1.25},
+  {patterns:['RX 6500'],name:'RX 6500 XT',tier:0.6},
+  {patterns:['RX 6600 XT'],name:'RX 6600 XT',tier:1.3},
+  {patterns:['RX 6600'],name:'RX 6600',tier:1.15},
+  {patterns:['RX 6700 XT'],name:'RX 6700 XT',tier:1.5},
+  {patterns:['RX 6800 XT'],name:'RX 6800 XT',tier:2.0},
+  {patterns:['RX 6800'],name:'RX 6800',tier:1.75},
+  {patterns:['RX 6900 XT'],name:'RX 6900 XT',tier:2.15},
+  {patterns:['RX 6950 XT'],name:'RX 6950 XT',tier:2.2},
+  {patterns:['RX 7600'],name:'RX 7600',tier:1.3},
+  {patterns:['RX 7700 XT'],name:'RX 7700 XT',tier:1.6},
+  {patterns:['RX 7800 XT'],name:'RX 7800 XT',tier:1.85},
+  {patterns:['RX 7900 GRE'],name:'RX 7900 GRE',tier:2.0},
+  {patterns:['RX 7900 XT'],name:'RX 7900 XT',tier:2.3},
+  {patterns:['RX 7900 XTX'],name:'RX 7900 XTX',tier:2.45},
+  {patterns:['RX 9070 XT'],name:'RX 9070 XT',tier:2.35},
+  {patterns:['RX 9070'],name:'RX 9070',tier:2.1},
+  // Intel
+  {patterns:['Arc A310','Arc A380'],name:'Arc A3xx',tier:0.5},
+  {patterns:['Arc A580'],name:'Arc A580',tier:1.0},
+  {patterns:['Arc A750'],name:'Arc A750',tier:1.2},
+  {patterns:['Arc A770'],name:'Arc A770',tier:1.35},
+  {patterns:['Arc B580'],name:'Arc B580',tier:1.35},
+  // Intel integrated
+  {patterns:['UHD Graphics 6','UHD 6'],name:'Intel UHD 6xx',tier:0.12},
+  {patterns:['UHD Graphics 7','UHD 7'],name:'Intel UHD 7xx',tier:0.18},
+  {patterns:['Iris Xe','Iris(R) Xe'],name:'Intel Iris Xe',tier:0.3},
+  {patterns:['Iris Plus'],name:'Intel Iris Plus',tier:0.2},
+  {patterns:['Intel(R) HD Graphics'],name:'Intel HD Graphics',tier:0.1},
+  // AMD integrated
+  {patterns:['Radeon Graphics','Radeon(TM) Graphics'],name:'AMD Radeon iGPU',tier:0.25},
+  {patterns:['Radeon Vega','Radeon RX Vega'],name:'AMD Vega iGPU',tier:0.28},
+  // Apple
+  {patterns:['Apple M1 Pro'],name:'Apple M1 Pro',tier:1.2},
+  {patterns:['Apple M1 Max'],name:'Apple M1 Max',tier:1.5},
+  {patterns:['Apple M1'],name:'Apple M1',tier:0.8},
+  {patterns:['Apple M2 Pro'],name:'Apple M2 Pro',tier:1.4},
+  {patterns:['Apple M2 Max'],name:'Apple M2 Max',tier:1.7},
+  {patterns:['Apple M2'],name:'Apple M2',tier:1.0},
+  {patterns:['Apple M3 Pro'],name:'Apple M3 Pro',tier:1.6},
+  {patterns:['Apple M3 Max'],name:'Apple M3 Max',tier:2.0},
+  {patterns:['Apple M3'],name:'Apple M3',tier:1.2},
+  {patterns:['Apple M4 Pro'],name:'Apple M4 Pro',tier:1.8},
+  {patterns:['Apple M4 Max'],name:'Apple M4 Max',tier:2.3},
+  {patterns:['Apple M4'],name:'Apple M4',tier:1.4},
+  {patterns:['Apple GPU'],name:'Apple GPU',tier:0.8},
+  // Qualcomm
+  {patterns:['Adreno 7','Adreno (TM) 7'],name:'Adreno 7xx',tier:0.35},
+  {patterns:['Adreno'],name:'Adreno',tier:0.2},
+  // Mali
+  {patterns:['Mali-G7'],name:'Mali-G7x',tier:0.15},
+  {patterns:['Mali'],name:'Mali',tier:0.1},
+];
+
+// Game database: base FPS at 1080p Medium for a GTX 1060 tier (multiplier 1.0)
+const GAMES_DB = [
+  {name:'Cyberpunk 2077',emoji:'🌃',base1080:38,base1440:26,base4k:14,preset:'Высокие',year:2020},
+  {name:'Red Dead Redemption 2',emoji:'🤠',base1080:48,base1440:35,base4k:19,preset:'Высокие',year:2019},
+  {name:'Elden Ring',emoji:'⚔️',base1080:45,base1440:34,base4k:18,preset:'Максимум',year:2022},
+  {name:'Hogwarts Legacy',emoji:'🧙',base1080:40,base1440:28,base4k:15,preset:'Высокие',year:2023},
+  {name:'Starfield',emoji:'🚀',base1080:32,base1440:22,base4k:12,preset:'Высокие',year:2023},
+  {name:'Alan Wake 2',emoji:'🔦',base1080:35,base1440:24,base4k:13,preset:'Высокие',year:2023},
+  {name:'CS2',emoji:'🔫',base1080:140,base1440:110,base4k:65,preset:'Высокие',year:2023},
+  {name:'Fortnite',emoji:'🏗️',base1080:95,base1440:70,base4k:38,preset:'Эпические',year:2017},
+  {name:'Baldur\'s Gate 3',emoji:'🐉',base1080:50,base1440:38,base4k:20,preset:'Ультра',year:2023},
+  {name:'Call of Duty MW3',emoji:'💣',base1080:75,base1440:55,base4k:30,preset:'Высокие',year:2023},
+  {name:'GTA V',emoji:'🚗',base1080:85,base1440:65,base4k:35,preset:'Очень выс.',year:2015},
+  {name:'Valorant',emoji:'🎯',base1080:200,base1440:160,base4k:95,preset:'Высокие',year:2020},
+  {name:'Black Myth: Wukong',emoji:'🐒',base1080:35,base1440:25,base4k:13,preset:'Высокие',year:2024},
+  {name:'The Last of Us Part I',emoji:'🍄',base1080:42,base1440:30,base4k:16,preset:'Высокие',year:2023},
+  {name:'Minecraft (шейдеры)',emoji:'⛏️',base1080:70,base1440:50,base4k:28,preset:'Шейдеры',year:2011},
+  {name:'Apex Legends',emoji:'🏃',base1080:100,base1440:78,base4k:42,preset:'Высокие',year:2019},
+];
+
+// ===============================================================
 // NAVIGATION
-// ===================================================================
-document.querySelectorAll('.nav-btn').forEach(b=>{
-b.addEventListener('click',()=>{
-document.querySelectorAll('.nav-btn').forEach(x=>x.classList.remove('active'));
-document.querySelectorAll('.pane').forEach(x=>x.classList.remove('active'));
-b.classList.add('active');
-document.getElementById('p-'+b.dataset.tab).classList.add('active');
+// ===============================================================
+document.querySelectorAll('.nav-b').forEach(b=>{
+  b.addEventListener('click',()=>{
+    document.querySelectorAll('.nav-b').forEach(x=>x.classList.remove('act'));
+    document.querySelectorAll('.pane').forEach(x=>x.classList.remove('act'));
+    b.classList.add('act');
+    document.getElementById('p-'+b.dataset.t).classList.add('act');
+  });
 });
-});
-function subTab(p,i,el){
-el.parentElement.querySelectorAll('.sub-btn').forEach(b=>b.classList.remove('active'));
-el.classList.add('active');
-const card=el.closest('.card');
-card.querySelectorAll('.sub-pane').forEach(s=>s.classList.remove('active'));
-document.getElementById(p+'-'+i).classList.add('active');
+function subT(p,i,el){
+  el.parentElement.querySelectorAll('.sub-b').forEach(b=>b.classList.remove('act'));
+  el.classList.add('act');
+  el.closest('.card').querySelectorAll('.sp').forEach(s=>s.classList.remove('act'));
+  document.getElementById(p+'-'+i).classList.add('act');
 }
 
-// ===================================================================
+// ===============================================================
 // UTILITIES
-// ===================================================================
-function fmt(n){if(n>=1e9)return(n/1e9).toFixed(2)+'B';if(n>=1e6)return(n/1e6).toFixed(2)+'M';if(n>=1e3)return(n/1e3).toFixed(1)+'K';return Math.round(n).toString()}
-function sleep(ms){return new Promise(r=>setTimeout(r,ms))}
+// ===============================================================
+function fmt(n){if(n>=1e9)return(n/1e9).toFixed(2)+'B';if(n>=1e6)return(n/1e6).toFixed(2)+'M';if(n>=1e3)return(n/1e3).toFixed(1)+'K';return Math.round(n).toString();}
+function sleep(ms){return new Promise(r=>setTimeout(r,ms));}
+function fpsCol(f){if(f>=120)return'var(--purple)';if(f>=90)return'var(--cyan)';if(f>=60)return'var(--green)';if(f>=30)return'var(--yellow)';return'var(--red)';}
+
 function parseUA(ua){
-let os='Unknown',br='Unknown';
-if(ua.includes('Windows NT 10.0'))os=ua.includes('Win64')?'Windows 10/11 x64':'Windows 10/11';
-else if(ua.includes('Windows NT 6.3'))os='Windows 8.1';
-else if(ua.includes('Windows NT 6.1'))os='Windows 7';
-else if(ua.includes('Mac OS X')){const m=ua.match(/Mac OS X ([\d_]+)/);os='macOS '+(m?m[1].replace(/_/g,'.'):'');}
-else if(ua.includes('CrOS'))os='Chrome OS';
-else if(ua.includes('Linux'))os='Linux';
-else if(ua.includes('Android'))os='Android';
-if(ua.includes('Edg/')){const m=ua.match(/Edg\/([\d.]+)/);br='Edge '+(m?m[1]:'');}
-else if(ua.includes('Chrome/')){const m=ua.match(/Chrome\/([\d.]+)/);br='Chrome '+(m?m[1]:'');}
-else if(ua.includes('Firefox/')){const m=ua.match(/Firefox\/([\d.]+)/);br='Firefox '+(m?m[1]:'');}
-else if(ua.includes('Safari/')&&!ua.includes('Chrome')){const m=ua.match(/Version\/([\d.]+)/);br='Safari '+(m?m[1]:'');}
-return{os,br};
+  let os='Unknown',br='Unknown';
+  if(ua.includes('Windows NT 10.0'))os=ua.includes('Win64')?'Windows 10/11 x64':'Windows 10/11';
+  else if(ua.includes('Windows NT 6.3'))os='Windows 8.1';
+  else if(ua.includes('Mac OS X')){const m=ua.match(/Mac OS X ([\d_]+)/);os='macOS '+(m?m[1].replace(/_/g,'.'):'');}
+  else if(ua.includes('CrOS'))os='Chrome OS';
+  else if(ua.includes('Android'))os='Android';
+  else if(ua.includes('Linux'))os='Linux';
+  if(ua.includes('Edg/')){const m=ua.match(/Edg\/([\d.]+)/);br='Edge '+(m?m[1]:'');}
+  else if(ua.includes('Chrome/')){const m=ua.match(/Chrome\/([\d.]+)/);br='Chrome '+(m?m[1]:'');}
+  else if(ua.includes('Firefox/')){const m=ua.match(/Firefox\/([\d.]+)/);br='Firefox '+(m?m[1]:'');}
+  else if(ua.includes('Safari/')&&!ua.includes('Chrome')){const m=ua.match(/Version\/([\d.]+)/);br='Safari '+(m?m[1]:'');}
+  return{os,br};
 }
+
 function glInfo(){
-try{const c=document.createElement('canvas'),gl=c.getContext('webgl')||c.getContext('experimental-webgl');
-if(!gl)return{v:'N/A',r:'N/A'};
-const e=gl.getExtension('WEBGL_debug_renderer_info');
-return e?{v:gl.getParameter(e.UNMASKED_VENDOR_WEBGL),r:gl.getParameter(e.UNMASKED_RENDERER_WEBGL)}:{v:gl.getParameter(gl.VENDOR),r:gl.getParameter(gl.RENDERER)};
-}catch(e){return{v:'N/A',r:'N/A'};}
-}
-function badge(score,th){
-if(score>=th[4])return{l:'Легендарный',c:'b-god'};
-if(score>=th[3])return{l:'Ультра',c:'b-ultra'};
-if(score>=th[2])return{l:'Высокий',c:'b-high'};
-if(score>=th[1])return{l:'Средний',c:'b-mid'};
-return{l:'Низкий',c:'b-low'};
-}
-function fpsColor(fps){
-if(fps>=120)return'var(--purple)';if(fps>=90)return'var(--cyan)';
-if(fps>=60)return'var(--green)';if(fps>=30)return'var(--yellow)';
-return'var(--red)';
+  try{
+    const c=document.createElement('canvas');
+    const gl=c.getContext('webgl2')||c.getContext('webgl')||c.getContext('experimental-webgl');
+    if(!gl)return{v:'N/A',r:'N/A',webgl2:false};
+    const e=gl.getExtension('WEBGL_debug_renderer_info');
+    const info=e?{v:gl.getParameter(e.UNMASKED_VENDOR_WEBGL),r:gl.getParameter(e.UNMASKED_RENDERER_WEBGL)}:{v:gl.getParameter(gl.VENDOR),r:gl.getParameter(gl.RENDERER)};
+    info.webgl2=!!c.getContext('webgl2');
+    info.maxTex=gl.getParameter(gl.MAX_TEXTURE_SIZE);
+    info.maxVP=gl.getParameter(gl.MAX_VIEWPORT_DIMS);
+    info.maxVaryings=gl.getParameter(gl.MAX_VARYING_VECTORS);
+    info.renderer=gl.getParameter(gl.RENDERER);
+    info.vendor=gl.getParameter(gl.VENDOR);
+    return info;
+  }catch(e){return{v:'N/A',r:'N/A',webgl2:false};}
 }
 
-// ===================================================================
-// AUTO RUN - ALL TESTS
-// ===================================================================
+function identifyGPU(rendererStr){
+  if(!rendererStr||rendererStr==='N/A')return{name:'Unknown GPU',tier:0.3,identified:false};
+  const upper=rendererStr.toUpperCase();
+  // Sort DB by pattern length descending so longer (more specific) patterns match first
+  const sorted=[...GPU_DB].sort((a,b)=>Math.max(...b.patterns.map(p=>p.length))-Math.max(...a.patterns.map(p=>p.length)));
+  for(const entry of sorted){
+    for(const pat of entry.patterns){
+      if(upper.includes(pat.toUpperCase())){
+        return{name:entry.name,tier:entry.tier,identified:true};
+      }
+    }
+  }
+  // Heuristic fallback based on WebGL benchmark score
+  return{name:'Unknown: '+rendererStr.substring(0,40),tier:null,identified:false};
+}
+
+// ===============================================================
+// WORKER FACTORY
+// ===============================================================
+function cpuWorker(code,dur){
+  return new Promise((res,rej)=>{
+    const b=new Blob([code],{type:'application/javascript'});
+    const w=new Worker(URL.createObjectURL(b));
+    w.onmessage=e=>{if(e.data.type==='done'){w.terminate();res(e.data);}};
+    w.onerror=e=>{w.terminate();rej(e);};
+    w.postMessage({duration:dur});
+  });
+}
+
+// ===============================================================
+// AUTO-RUN TEST DEFINITIONS
+// ===============================================================
 const autoTests=[
-{id:'sysinfo',name:'Сбор информации о системе',icon:'🖥️'},
-{id:'cpu1',name:'CPU: Мандельброт (однопоток)',icon:'⚡'},
-{id:'cpu2',name:'CPU: Криптографический хэш',icon:'🔐'},
-{id:'cpu3',name:'CPU: Сортировка массива',icon:'📊'},
-{id:'cpu4',name:'CPU: Вычисление числа π',icon:'🔢'},
-{id:'gpu1',name:'GPU: WebGL частицы (15K)',icon:'🎮'},
-{id:'gpu2',name:'GPU: WebGL сложная сцена',icon:'🌐'},
-{id:'mem1',name:'RAM: Последовательная запись',icon:'💾'},
-{id:'mem2',name:'RAM: Последовательное чтение',icon:'📖'},
-{id:'mem3',name:'RAM: Случайный доступ',icon:'🎲'},
-{id:'mem4',name:'RAM: Копирование буфера',icon:'📋'},
-{id:'hz',name:'Частота обновления монитора',icon:'🖵'},
-{id:'net',name:'Тест сети (латентность)',icon:'🌐'},
-{id:'canvas2d',name:'Canvas 2D рендеринг',icon:'🎨'},
-{id:'jsperf',name:'JavaScript производительность',icon:'🏎️'},
-{id:'wasm',name:'Проверка поддержки WebAssembly',icon:'⚙️'},
+  {id:'sysinfo',name:'Сбор информации о системе',icon:'🖥️'},
+  {id:'gpuident',name:'Идентификация GPU через WebGL',icon:'🔍'},
+  {id:'cpu1',name:'CPU: Мандельброт (5с)',icon:'⚡'},
+  {id:'cpu2',name:'CPU: Криптографический хэш',icon:'🔐'},
+  {id:'cpu3',name:'CPU: Сортировка массива',icon:'📊'},
+  {id:'cpu4',name:'CPU: Вычисление π (Лейбниц)',icon:'🔢'},
+  {id:'cpu5',name:'CPU: Матричные операции',icon:'🧮'},
+  {id:'gpu1',name:'GPU: WebGL 15K частиц (реальный рендер)',icon:'🎮'},
+  {id:'gpu2',name:'GPU: WebGL освещённые объекты',icon:'🌐'},
+  {id:'gpu3',name:'GPU: WebGL тяжёлый фрагментный шейдер',icon:'🎆'},
+  {id:'mem1',name:'RAM: Последовательная запись',icon:'💾'},
+  {id:'mem2',name:'RAM: Последовательное чтение',icon:'📖'},
+  {id:'mem3',name:'RAM: Случайный доступ',icon:'🎲'},
+  {id:'mem4',name:'RAM: Копирование буфера',icon:'📋'},
+  {id:'hz',name:'Частота обновления монитора',icon:'🖵'},
+  {id:'net',name:'Тест сети (латентность)',icon:'🌐'},
+  {id:'canvas2d',name:'Canvas 2D производительность',icon:'🎨'},
+  {id:'jsperf',name:'JavaScript движок',icon:'🏎️'},
+  {id:'wasm',name:'WebAssembly поддержка',icon:'⚙️'},
 ];
 
-async function startAutoRun(){
-const btn=document.getElementById('btnAutoRun');
-btn.disabled=true;
-document.getElementById('autoProgress').style.display='block';
+async function startAuto(){
+  const btn=document.getElementById('btnAuto');btn.disabled=true;
+  document.getElementById('autoP').style.display='block';
+  const cont=document.getElementById('autoItems');cont.innerHTML='';
+  const gpuArea=document.getElementById('gpuRenderArea');gpuArea.innerHTML='';
 
-const container=document.getElementById('autoTests');
-container.innerHTML='';
-autoTests.forEach(t=>{
-const div=document.createElement('div');
-div.className='test-item';div.id='ti-'+t.id;
-div.innerHTML=`<div class="test-icon">${t.icon}</div><div class="test-name">${t.name}</div><div class="test-status" id="ts-${t.id}">Ожидание</div><div class="test-score" id="tv-${t.id}">—</div>`;
-container.appendChild(div);
-});
+  autoTests.forEach(t=>{
+    const d=document.createElement('div');d.className='ti';d.id='ti-'+t.id;
+    d.innerHTML=`<div class="ti-i">${t.icon}</div><div class="ti-n">${t.name}</div><div class="ti-s" id="ts-${t.id}">Ожидание</div><div class="ti-v" id="tv-${t.id}">—</div>`;
+    cont.appendChild(d);
+  });
 
-const total=autoTests.length;
-let done=0;
-const prog=document.getElementById('autoProgFill');
-const stat=document.getElementById('autoStatus');
+  const total=autoTests.length;let done=0;
+  const fill=document.getElementById('autoFill');
+  const stat=document.getElementById('autoSt');
 
-async function runTest(id){
-const el=document.getElementById('ti-'+id);
-const ts=document.getElementById('ts-'+id);
-const tv=document.getElementById('tv-'+id);
-el.classList.add('running','scanning');
-ts.innerHTML='<span class="spinner"></span>Выполняется';
-stat.innerHTML=`<span class="spinner"></span> ${autoTests.find(t=>t.id===id).name}...`;
-try{
-switch(id){
-case 'sysinfo':await testSysInfo(tv);break;
-case 'cpu1':await testCPU1(tv);break;
-case 'cpu2':await testCPU2(tv);break;
-case 'cpu3':await testCPU3(tv);break;
-case 'cpu4':await testCPU4(tv);break;
-case 'gpu1':await testGPU1(tv);break;
-case 'gpu2':await testGPU2(tv);break;
-case 'mem1':await testMem(tv,'write');break;
-case 'mem2':await testMem(tv,'read');break;
-case 'mem3':await testMem(tv,'random');break;
-case 'mem4':await testMem(tv,'copy');break;
-case 'hz':await testHz(tv);break;
-case 'net':await testNet(tv);break;
-case 'canvas2d':await testCanvas2D(tv);break;
-case 'jsperf':await testJSPerf(tv);break;
-case 'wasm':await testWasm(tv);break;
-}
-el.classList.remove('running','scanning');el.classList.add('done');
-ts.textContent='✅ Готово';
-}catch(e){
-el.classList.remove('running','scanning');el.classList.add('error');
-ts.textContent='❌ Ошибка';tv.textContent=e.message||'Error';
-}
-done++;prog.style.width=(done/total*100)+'%';
-}
-
-for(const t of autoTests){await runTest(t.id);await sleep(100);}
-
-stat.innerHTML='✅ <span style="color:var(--green)">Все тесты завершены!</span>';
-btn.disabled=false;
-
-buildResults();
-
-// Switch to results tab
-document.querySelectorAll('.nav-btn').forEach(b=>{
-if(b.dataset.tab==='results'){b.click();}
-});
+  for(const t of autoTests){
+    const el=document.getElementById('ti-'+t.id);
+    const ts=document.getElementById('ts-'+t.id);
+    const tv=document.getElementById('tv-'+t.id);
+    el.classList.add('run','scanning');
+    ts.innerHTML='<span class="spinner"></span>Выполняется';
+    stat.innerHTML=`<span class="spinner"></span> ${t.name}...`;
+    try{
+      switch(t.id){
+        case 'sysinfo':await tSysInfo(tv);break;
+        case 'gpuident':await tGpuIdent(tv);break;
+        case 'cpu1':await tCPU1(tv);break;
+        case 'cpu2':await tCPU2(tv);break;
+        case 'cpu3':await tCPU3(tv);break;
+        case 'cpu4':await tCPU4(tv);break;
+        case 'cpu5':await tCPU5(tv);break;
+        case 'gpu1':await tGPU1(tv,gpuArea);break;
+        case 'gpu2':await tGPU2(tv,gpuArea);break;
+        case 'gpu3':await tGPU3(tv,gpuArea);break;
+        case 'mem1':await tMem(tv,'w');break;
+        case 'mem2':await tMem(tv,'r');break;
+        case 'mem3':await tMem(tv,'x');break;
+        case 'mem4':await tMem(tv,'c');break;
+        case 'hz':await tHz(tv);break;
+        case 'net':await tNet(tv);break;
+        case 'canvas2d':await tC2D(tv);break;
+        case 'jsperf':await tJS(tv);break;
+        case 'wasm':await tWasm(tv);break;
+      }
+      el.classList.remove('run','scanning');el.classList.add('done');ts.textContent='✅ Готово';
+    }catch(e){
+      el.classList.remove('run','scanning');el.classList.add('err');ts.textContent='❌ Ошибка';tv.textContent=(e.message||'Error').substring(0,30);
+    }
+    done++;fill.style.width=(done/total*100)+'%';
+    await sleep(80);
+  }
+  stat.innerHTML='✅ <span style="color:var(--green)">Все тесты завершены!</span>';
+  btn.disabled=false;
+  buildResults();
+  document.querySelectorAll('.nav-b').forEach(b=>{if(b.dataset.t==='results')b.click();});
 }
 
-// ===================================================================
-// TEST: SYSTEM INFO
-// ===================================================================
-async function testSysInfo(tv){
-await sleep(200);
-const ua=parseUA(navigator.userAgent);
-const gpu=glInfo();
-const cores=navigator.hardwareConcurrency||'?';
-const ram=navigator.deviceMemory||'?';
-const conn=navigator.connection||{};
-R.sys={
-os:ua.os,browser:ua.br,
-cores,ram:ram+'GB',
-screen:`${screen.width}×${screen.height}`,
-colorDepth:screen.colorDepth,
-dpr:window.devicePixelRatio,
-gpuVendor:gpu.v,gpuRenderer:gpu.r,
-lang:navigator.language,
-tz:Intl.DateTimeFormat().resolvedOptions().timeZone,
-connType:conn.effectiveType||'?',
-connDown:conn.downlink||'?',
-connRtt:conn.rtt||'?',
-maxTouch:navigator.maxTouchPoints||0,
-platform:navigator.platform||'?',
-cookiesEnabled:navigator.cookieEnabled,
-pdfViewer:navigator.pdfViewerEnabled||false,
-webgl2:!!document.createElement('canvas').getContext('webgl2'),
-};
-tv.textContent=ua.os;
+// ===============================================================
+// TEST IMPLEMENTATIONS
+// ===============================================================
+async function tSysInfo(tv){
+  await sleep(150);
+  const ua=parseUA(navigator.userAgent);
+  const gpu=glInfo();
+  const conn=navigator.connection||{};
+  R.sys={
+    os:ua.os,browser:ua.br,cores:navigator.hardwareConcurrency||'?',
+    ram:(navigator.deviceMemory||'?')+'GB',
+    screen:`${screen.width}×${screen.height}`,colorDepth:screen.colorDepth,
+    dpr:window.devicePixelRatio,gpuVendor:gpu.v,gpuRenderer:gpu.r,
+    webgl2:gpu.webgl2,maxTex:gpu.maxTex,
+    lang:navigator.language,tz:Intl.DateTimeFormat().resolvedOptions().timeZone,
+    connType:conn.effectiveType||'?',connDown:conn.downlink||'?',
+    platform:navigator.platform||'?'
+  };
+  tv.textContent=ua.os;
 }
 
-// ===================================================================
-// TEST: CPU BENCHMARKS
-// ===================================================================
-function cpuWorker(code,duration){
-return new Promise((resolve,reject)=>{
-const blob=new Blob([code],{type:'application/javascript'});
-const w=new Worker(URL.createObjectURL(blob));
-w.onmessage=e=>{if(e.data.type==='done'){w.terminate();resolve(e.data);}};
-w.onerror=e=>{w.terminate();reject(e);};
-w.postMessage({duration});
-});
+async function tGpuIdent(tv){
+  await sleep(100);
+  const gpu=glInfo();
+  const identified=identifyGPU(gpu.r);
+  R.gpuId=identified;
+  R.gpuRawRenderer=gpu.r;
+  if(identified.identified){
+    tv.textContent=identified.name;
+    tv.style.color='var(--green)';
+  }else{
+    tv.textContent='~'+identified.name.substring(0,25);
+    tv.style.color='var(--yellow)';
+  }
 }
 
-async function testCPU1(tv){
-const code=`self.onmessage=function(e){
-const d=e.data.duration,s=performance.now();let it=0;
-while(performance.now()-s<d){
-for(let px=0;px<80;px++)for(let py=0;py<80;py++){
-let x0=px/80*3.5-2.5,y0=py/80*2-1,x=0,y=0,i=0;
-while(x*x+y*y<=4&&i<100){let t=x*x-y*y+x0;y=2*x*y+y0;x=t;i++;}
-it++;}
+async function tCPU1(tv){
+  const code=`self.onmessage=function(e){const d=e.data.duration,s=performance.now();let it=0;while(performance.now()-s<d){for(let px=0;px<80;px++)for(let py=0;py<80;py++){let x0=px/80*3.5-2.5,y0=py/80*2-1,x=0,y=0,i=0;while(x*x+y*y<=4&&i<100){let t=x*x-y*y+x0;y=2*x*y+y0;x=t;i++;}it++;}}self.postMessage({type:'done',score:it});};`;
+  const r=await cpuWorker(code,5000);R.cpu1=r.score;tv.textContent=fmt(r.score);
 }
-self.postMessage({type:'done',score:it,time:performance.now()-s});};`;
-const r=await cpuWorker(code,5000);
-R.cpu1=r.score;tv.textContent=fmt(r.score);
+async function tCPU2(tv){
+  const code=`self.onmessage=function(e){const d=e.data.duration,s=performance.now();let ops=0;const enc=new TextEncoder();while(performance.now()-s<d){const data=enc.encode('CyberAudit '+ops);let h=0;for(let i=0;i<data.length;i++){h=((h<<5)-h)+data[i];h|=0;}ops++;}self.postMessage({type:'done',score:ops});};`;
+  const r=await cpuWorker(code,3000);R.cpu2=r.score;tv.textContent=fmt(r.score);
 }
-
-async function testCPU2(tv){
-const code=`self.onmessage=async function(e){
-const d=e.data.duration,s=performance.now();let ops=0;
-const enc=new TextEncoder();
-while(performance.now()-s<d){
-const data=enc.encode('CyberAudit benchmark test string '+ops);
-let hash=0;for(let i=0;i<data.length;i++){hash=((hash<<5)-hash)+data[i];hash|=0;}
-ops++;}
-self.postMessage({type:'done',score:ops,time:performance.now()-s});};`;
-const r=await cpuWorker(code,3000);
-R.cpu2=r.score;tv.textContent=fmt(r.score);
+async function tCPU3(tv){
+  const code=`self.onmessage=function(e){const d=e.data.duration,s=performance.now();let ops=0;while(performance.now()-s<d){const a=new Float64Array(10000);for(let i=0;i<10000;i++)a[i]=Math.random();a.sort();ops+=10000;}self.postMessage({type:'done',score:ops});};`;
+  const r=await cpuWorker(code,3000);R.cpu3=r.score;tv.textContent=fmt(r.score);
+}
+async function tCPU4(tv){
+  const code=`self.onmessage=function(e){const d=e.data.duration,s=performance.now();let dg=0;while(performance.now()-s<d){let pi=0;for(let k=0;k<5000;k++){pi+=4*Math.pow(-1,k)/(2*k+1);}dg+=5000;}self.postMessage({type:'done',score:dg});};`;
+  const r=await cpuWorker(code,3000);R.cpu4=r.score;tv.textContent=fmt(r.score);
+}
+async function tCPU5(tv){
+  const code=`self.onmessage=function(e){const d=e.data.duration,s=performance.now();let ops=0;while(performance.now()-s<d){const sz=64;const a=new Float64Array(sz*sz);const b=new Float64Array(sz*sz);const c=new Float64Array(sz*sz);for(let i=0;i<sz*sz;i++){a[i]=Math.random();b[i]=Math.random();}for(let i=0;i<sz;i++)for(let j=0;j<sz;j++){let sum=0;for(let k=0;k<sz;k++)sum+=a[i*sz+k]*b[k*sz+j];c[i*sz+j]=sum;}ops++;}self.postMessage({type:'done',score:ops});};`;
+  const r=await cpuWorker(code,3000);R.cpu5=r.score;tv.textContent=fmt(r.score);
 }
 
-async function testCPU3(tv){
-const code=`self.onmessage=function(e){
-const d=e.data.duration,s=performance.now();let ops=0;
-while(performance.now()-s<d){
-const a=new Float64Array(10000);
-for(let i=0;i<10000;i++)a[i]=Math.random();
-a.sort();ops+=10000;}
-self.postMessage({type:'done',score:ops,time:performance.now()-s});};`;
-const r=await cpuWorker(code,3000);
-R.cpu3=r.score;tv.textContent=fmt(r.score);
+// ---------------------------------------------------------------
+// GPU BENCHMARK 1: 15K Particle System (VISIBLE ON SCREEN)
+// ---------------------------------------------------------------
+async function tGPU1(tv,area){
+  return new Promise((res)=>{
+    const canvas=document.createElement('canvas');
+    canvas.width=800;canvas.height=400;
+    canvas.className='gpu-canvas';
+    canvas.style.display='block';
+    const label=document.createElement('div');
+    label.style.cssText='font-size:.75rem;color:var(--dim);margin:4px 0';
+    label.textContent='🎮 GPU тест 1: 15,000 неоновых частиц — реальный WebGL рендеринг';
+    area.appendChild(label);
+    area.appendChild(canvas);
+
+    let gl;
+    try{gl=canvas.getContext('webgl',{antialias:false,preserveDrawingBuffer:false});if(!gl)throw new Error();}
+    catch(e){R.gpu1=0;tv.textContent='N/A';res();return;}
+
+    const N=15000;
+    const vs=`attribute vec2 p;attribute vec3 c;attribute float s;varying vec3 vc;void main(){gl_Position=vec4(p,0,1);gl_PointSize=s;vc=c;}`;
+    const fs=`precision mediump float;varying vec3 vc;void main(){float d=distance(gl_PointCoord,vec2(.5));if(d>.5)discard;float a=1.-smoothstep(.2,.5,d);gl_FragColor=vec4(vc*a,a);}`;
+    function cs(src,type){const s=gl.createShader(type);gl.shaderSource(s,src);gl.compileShader(s);return s;}
+    const prog=gl.createProgram();gl.attachShader(prog,cs(vs,gl.VERTEX_SHADER));gl.attachShader(prog,cs(fs,gl.FRAGMENT_SHADER));gl.linkProgram(prog);gl.useProgram(prog);
+    const aP=gl.getAttribLocation(prog,'p'),aC=gl.getAttribLocation(prog,'c'),aS=gl.getAttribLocation(prog,'s');
+    const pos=new Float32Array(N*2),vel=new Float32Array(N*2),col=new Float32Array(N*3),siz=new Float32Array(N);
+    const nc=[[0,.94,1],[1,0,.67],[0,1,.53],[1,.8,0],[.67,0,1]];
+    for(let i=0;i<N;i++){pos[i*2]=Math.random()*2-1;pos[i*2+1]=Math.random()*2-1;vel[i*2]=(Math.random()-.5)*.015;vel[i*2+1]=(Math.random()-.5)*.015;const c2=nc[i%5];col[i*3]=c2[0];col[i*3+1]=c2[1];col[i*3+2]=c2[2];siz[i]=2+Math.random()*5;}
+    const pb=gl.createBuffer(),cb=gl.createBuffer(),sb=gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER,cb);gl.bufferData(gl.ARRAY_BUFFER,col,gl.STATIC_DRAW);gl.enableVertexAttribArray(aC);gl.vertexAttribPointer(aC,3,gl.FLOAT,false,0,0);
+    gl.bindBuffer(gl.ARRAY_BUFFER,sb);gl.bufferData(gl.ARRAY_BUFFER,siz,gl.STATIC_DRAW);gl.enableVertexAttribArray(aS);gl.vertexAttribPointer(aS,1,gl.FLOAT,false,0,0);
+    gl.enable(gl.BLEND);gl.blendFunc(gl.SRC_ALPHA,gl.ONE);gl.clearColor(0,0,0,1);gl.viewport(0,0,800,400);
+    const DUR=8000,st=performance.now();let fr=0,fpsA=[],lT=st,lF=0;
+    const fpsLabel=document.createElement('div');fpsLabel.style.cssText='font-family:var(--ft);font-size:.9rem;color:var(--cyan);margin:4px 0';
+    area.appendChild(fpsLabel);
+
+    function loop(){
+      const now=performance.now(),el=now-st;
+      if(el>=DUR){const avg=fpsA.length?Math.round(fpsA.reduce((a,b)=>a+b)/fpsA.length):0;R.gpu1=avg;R.gpu1min=Math.min(...fpsA);R.gpu1max=Math.max(...fpsA);R.gpu1data=fpsA;tv.textContent=avg+' FPS';fpsLabel.textContent=`Результат: ${avg} avg FPS (min ${R.gpu1min}, max ${R.gpu1max})`;res();return;}
+      for(let i=0;i<N;i++){pos[i*2]+=vel[i*2];pos[i*2+1]+=vel[i*2+1];if(Math.abs(pos[i*2])>1)vel[i*2]*=-1;if(Math.abs(pos[i*2+1])>1)vel[i*2+1]*=-1;}
+      gl.clear(gl.COLOR_BUFFER_BIT);
+      gl.bindBuffer(gl.ARRAY_BUFFER,pb);gl.bufferData(gl.ARRAY_BUFFER,pos,gl.DYNAMIC_DRAW);gl.enableVertexAttribArray(aP);gl.vertexAttribPointer(aP,2,gl.FLOAT,false,0,0);
+      gl.drawArrays(gl.POINTS,0,N);fr++;
+      if(now-lT>=500){const dt=(now-lT)/1000;const fps=Math.round((fr-lF)/dt);fpsA.push(fps);lT=now;lF=fr;fpsLabel.textContent=`Рендеринг... FPS: ${fps} | Прошло: ${(el/1000).toFixed(1)}с`;}
+      requestAnimationFrame(loop);
+    }
+    requestAnimationFrame(loop);
+  });
 }
 
-async function testCPU4(tv){
-const code=`self.onmessage=function(e){
-const d=e.data.duration,s=performance.now();let digits=0;
-while(performance.now()-s<d){
-let pi=0,k=0;
-for(k=0;k<5000;k++){pi+=4*Math.pow(-1,k)/(2*k+1);}
-digits+=k;}
-self.postMessage({type:'done',score:digits,time:performance.now()-s});};`;
-const r=await cpuWorker(code,3000);
-R.cpu4=r.score;tv.textContent=fmt(r.score);
+// ---------------------------------------------------------------
+// GPU BENCHMARK 2: Lit rotating objects (VISIBLE)
+// ---------------------------------------------------------------
+async function tGPU2(tv,area){
+  return new Promise((res)=>{
+    const canvas=document.createElement('canvas');canvas.width=800;canvas.height=400;canvas.className='gpu-canvas';canvas.style.display='block';
+    const label=document.createElement('div');label.style.cssText='font-size:.75rem;color:var(--dim);margin:4px 0';
+    label.textContent='🌐 GPU тест 2: Вращающиеся объекты с освещением';
+    area.appendChild(label);area.appendChild(canvas);
+    let gl;try{gl=canvas.getContext('webgl',{antialias:true});if(!gl)throw new Error();}catch(e){R.gpu2=0;tv.textContent='N/A';res();return;}
+
+    const N=3000;
+    const vs=`attribute vec2 p;attribute vec3 c;attribute float r;attribute float sz;varying vec3 vc;
+    void main(){float cr=cos(r),sr=sin(r);vec2 rp=vec2(p.x*cr-p.y*sr,p.x*sr+p.y*cr);gl_Position=vec4(rp,0,1);gl_PointSize=sz;vc=c;}`;
+    const fs=`precision mediump float;varying vec3 vc;
+    void main(){vec2 uv=gl_PointCoord-0.5;float d=length(uv);if(d>0.5)discard;
+    vec3 n=normalize(vec3(uv,sqrt(max(0.0,0.25-d*d))));
+    vec3 light=normalize(vec3(1,1,1));float diff=max(dot(n,light),0.15);
+    vec3 col=vc*diff+pow(max(dot(reflect(-light,n),vec3(0,0,1)),0.0),16.0)*0.5;
+    gl_FragColor=vec4(col,1.0-smoothstep(0.4,0.5,d));}`;
+
+    function cs(src,type){const s=gl.createShader(type);gl.shaderSource(s,src);gl.compileShader(s);return s;}
+    const prog=gl.createProgram();gl.attachShader(prog,cs(vs,gl.VERTEX_SHADER));gl.attachShader(prog,cs(fs,gl.FRAGMENT_SHADER));gl.linkProgram(prog);gl.useProgram(prog);
+    const aP=gl.getAttribLocation(prog,'p'),aC=gl.getAttribLocation(prog,'c'),aR=gl.getAttribLocation(prog,'r'),aSz=gl.getAttribLocation(prog,'sz');
+    const pos=new Float32Array(N*2),col=new Float32Array(N*3),rot=new Float32Array(N),sz=new Float32Array(N),spd=new Float32Array(N*2),rspd=new Float32Array(N);
+    for(let i=0;i<N;i++){pos[i*2]=Math.random()*2-1;pos[i*2+1]=Math.random()*2-1;spd[i*2]=(Math.random()-.5)*.006;spd[i*2+1]=(Math.random()-.5)*.006;col[i*3]=.3+Math.random()*.7;col[i*3+1]=.3+Math.random()*.7;col[i*3+2]=.3+Math.random()*.7;rot[i]=Math.random()*6.28;rspd[i]=(Math.random()-.5)*.05;sz[i]=6+Math.random()*12;}
+    const pb=gl.createBuffer(),cb=gl.createBuffer(),rb=gl.createBuffer(),sb=gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER,cb);gl.bufferData(gl.ARRAY_BUFFER,col,gl.STATIC_DRAW);gl.enableVertexAttribArray(aC);gl.vertexAttribPointer(aC,3,gl.FLOAT,false,0,0);
+    gl.bindBuffer(gl.ARRAY_BUFFER,sb);gl.bufferData(gl.ARRAY_BUFFER,sz,gl.STATIC_DRAW);gl.enableVertexAttribArray(aSz);gl.vertexAttribPointer(aSz,1,gl.FLOAT,false,0,0);
+    gl.enable(gl.BLEND);gl.blendFunc(gl.SRC_ALPHA,gl.ONE_MINUS_SRC_ALPHA);gl.clearColor(0.02,0.02,0.06,1);gl.viewport(0,0,800,400);
+    const DUR=8000,st0=performance.now();let fr=0,fpsA=[],lT=st0,lF=0;
+    const fpsLabel=document.createElement('div');fpsLabel.style.cssText='font-family:var(--ft);font-size:.9rem;color:var(--green);margin:4px 0';area.appendChild(fpsLabel);
+
+    function loop(){
+      const now=performance.now(),el=now-st0;
+      if(el>=DUR){const avg=fpsA.length?Math.round(fpsA.reduce((a,b)=>a+b)/fpsA.length):0;R.gpu2=avg;tv.textContent=avg+' FPS';fpsLabel.textContent=`Результат: ${avg} avg FPS`;res();return;}
+      for(let i=0;i<N;i++){pos[i*2]+=spd[i*2];pos[i*2+1]+=spd[i*2+1];if(Math.abs(pos[i*2])>1)spd[i*2]*=-1;if(Math.abs(pos[i*2+1])>1)spd[i*2+1]*=-1;rot[i]+=rspd[i];}
+      gl.clear(gl.COLOR_BUFFER_BIT);
+      gl.bindBuffer(gl.ARRAY_BUFFER,pb);gl.bufferData(gl.ARRAY_BUFFER,pos,gl.DYNAMIC_DRAW);gl.enableVertexAttribArray(aP);gl.vertexAttribPointer(aP,2,gl.FLOAT,false,0,0);
+      gl.bindBuffer(gl.ARRAY_BUFFER,rb);gl.bufferData(gl.ARRAY_BUFFER,rot,gl.DYNAMIC_DRAW);gl.enableVertexAttribArray(aR);gl.vertexAttribPointer(aR,1,gl.FLOAT,false,0,0);
+      gl.drawArrays(gl.POINTS,0,N);fr++;
+      if(now-lT>=500){const dt=(now-lT)/1000;const fps=Math.round((fr-lF)/dt);fpsA.push(fps);lT=now;lF=fr;fpsLabel.textContent=`Рендеринг... FPS: ${fps}`;}
+      requestAnimationFrame(loop);
+    }
+    requestAnimationFrame(loop);
+  });
 }
 
-// ===================================================================
-// TEST: GPU BENCHMARKS
-// ===================================================================
-async function testGPU1(tv){
-return new Promise((resolve,reject)=>{
-const canvas=document.createElement('canvas');
-canvas.width=800;canvas.height=600;
-let gl;
-try{gl=canvas.getContext('webgl',{antialias:false});if(!gl)throw new Error('No WebGL');}
-catch(e){R.gpu1=0;tv.textContent='N/A';resolve();return;}
+// ---------------------------------------------------------------
+// GPU BENCHMARK 3: Heavy fragment shader (raymarching) (VISIBLE)
+// ---------------------------------------------------------------
+async function tGPU3(tv,area){
+  return new Promise((res)=>{
+    const canvas=document.createElement('canvas');canvas.width=640;canvas.height=360;canvas.className='gpu-canvas';canvas.style.display='block';
+    const label=document.createElement('div');label.style.cssText='font-size:.75rem;color:var(--dim);margin:4px 0';
+    label.textContent='🎆 GPU тест 3: Тяжёлый фрагментный шейдер (raymarching)';
+    area.appendChild(label);area.appendChild(canvas);
+    let gl;try{gl=canvas.getContext('webgl',{antialias:false});if(!gl)throw new Error();}catch(e){R.gpu3=0;tv.textContent='N/A';res();return;}
 
-const N=15000;
-const vs=`attribute vec2 p;attribute vec3 c;attribute float s;varying vec3 vc;
-void main(){gl_Position=vec4(p,0,1);gl_PointSize=s;vc=c;}`;
-const fs=`precision mediump float;varying vec3 vc;
-void main(){float d=distance(gl_PointCoord,vec2(.5));if(d>.5)discard;float a=1.-smoothstep(.3,.5,d);gl_FragColor=vec4(vc*a,a);}`;
+    const vs=`attribute vec2 p;void main(){gl_Position=vec4(p,0,1);}`;
+    const fs=`precision mediump float;
+    uniform float u_time;uniform vec2 u_res;
+    float sdSphere(vec3 p,float r){return length(p)-r;}
+    float sdBox(vec3 p,vec3 b){vec3 q=abs(p)-b;return length(max(q,0.0))+min(max(q.x,max(q.y,q.z)),0.0);}
+    float scene(vec3 p){
+      float d=1e10;
+      for(int i=0;i<6;i++){
+        float fi=float(i);
+        vec3 pos=vec3(cos(u_time+fi*1.2)*2.0,sin(u_time*0.7+fi)*1.5,sin(u_time*0.5+fi*0.8)*2.0-5.0);
+        d=min(d,sdSphere(p-pos,0.5+0.2*sin(u_time+fi)));
+      }
+      d=min(d,sdBox(p-vec3(0,0,-5),vec3(0.8+0.3*sin(u_time),0.8,0.8)));
+      d=min(d,p.y+2.0);
+      return d;
+    }
+    void main(){
+      vec2 uv=(gl_FragCoord.xy-u_res*.5)/u_res.y;
+      vec3 ro=vec3(0,0,1),rd=normalize(vec3(uv,-1));
+      float t=0.0;vec3 col=vec3(0.02,0.02,0.06);
+      for(int i=0;i<64;i++){
+        vec3 p=ro+rd*t;float d=scene(p);
+        if(d<0.001){
+          vec2 e=vec2(0.001,0);
+          vec3 n=normalize(vec3(scene(p+e.xyy)-scene(p-e.xyy),scene(p+e.yxy)-scene(p-e.yxy),scene(p+e.yyx)-scene(p-e.yyx)));
+          vec3 light=normalize(vec3(1,2,1));
+          float diff=max(dot(n,light),0.1);
+          col=vec3(0.0,0.9,1.0)*diff+pow(max(dot(reflect(-light,n),normalize(-rd)),0.0),32.0)*vec3(1,0.5,1);
+          col*=exp(-t*0.1);break;
+        }
+        t+=d;if(t>20.0)break;
+      }
+      gl_FragColor=vec4(col,1);
+    }`;
 
-function cs(src,type){const s=gl.createShader(type);gl.shaderSource(s,src);gl.compileShader(s);return s;}
-const prog=gl.createProgram();gl.attachShader(prog,cs(vs,gl.VERTEX_SHADER));gl.attachShader(prog,cs(fs,gl.FRAGMENT_SHADER));gl.linkProgram(prog);gl.useProgram(prog);
+    function cs(src,type){const s=gl.createShader(type);gl.shaderSource(s,src);gl.compileShader(s);if(!gl.getShaderParameter(s,gl.COMPILE_STATUS)){console.log(gl.getShaderInfoLog(s));}return s;}
+    const prog=gl.createProgram();gl.attachShader(prog,cs(vs,gl.VERTEX_SHADER));gl.attachShader(prog,cs(fs,gl.FRAGMENT_SHADER));gl.linkProgram(prog);gl.useProgram(prog);
+    const uTime=gl.getUniformLocation(prog,'u_time');
+    const uRes=gl.getUniformLocation(prog,'u_res');
+    gl.uniform2f(uRes,640,360);
+    const verts=new Float32Array([-1,-1,1,-1,-1,1,1,1]);
+    const buf=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,buf);gl.bufferData(gl.ARRAY_BUFFER,verts,gl.STATIC_DRAW);
+    const aP=gl.getAttribLocation(prog,'p');gl.enableVertexAttribArray(aP);gl.vertexAttribPointer(aP,2,gl.FLOAT,false,0,0);
+    gl.viewport(0,0,640,360);
 
-const aP=gl.getAttribLocation(prog,'p'),aC=gl.getAttribLocation(prog,'c'),aS=gl.getAttribLocation(prog,'s');
-const pos=new Float32Array(N*2),vel=new Float32Array(N*2),col=new Float32Array(N*3),siz=new Float32Array(N);
-const nc=[[0,.94,1],[1,0,.67],[0,1,.53],[1,.8,0],[.67,0,1]];
-for(let i=0;i<N;i++){pos[i*2]=Math.random()*2-1;pos[i*2+1]=Math.random()*2-1;vel[i*2]=(Math.random()-.5)*.012;vel[i*2+1]=(Math.random()-.5)*.012;const c=nc[i%5];col[i*3]=c[0];col[i*3+1]=c[1];col[i*3+2]=c[2];siz[i]=2+Math.random()*4;}
+    const DUR=8000,st0=performance.now();let fr=0,fpsA=[],lT=st0,lF=0;
+    const fpsLabel=document.createElement('div');fpsLabel.style.cssText='font-family:var(--ft);font-size:.9rem;color:var(--pink);margin:4px 0';area.appendChild(fpsLabel);
 
-const pb=gl.createBuffer(),cb=gl.createBuffer(),sb=gl.createBuffer();
-gl.bindBuffer(gl.ARRAY_BUFFER,cb);gl.bufferData(gl.ARRAY_BUFFER,col,gl.STATIC_DRAW);gl.enableVertexAttribArray(aC);gl.vertexAttribPointer(aC,3,gl.FLOAT,false,0,0);
-gl.bindBuffer(gl.ARRAY_BUFFER,sb);gl.bufferData(gl.ARRAY_BUFFER,siz,gl.STATIC_DRAW);gl.enableVertexAttribArray(aS);gl.vertexAttribPointer(aS,1,gl.FLOAT,false,0,0);
-gl.enable(gl.BLEND);gl.blendFunc(gl.SRC_ALPHA,gl.ONE);gl.clearColor(0,0,0,1);gl.viewport(0,0,800,600);
-
-const DUR=8000,start=performance.now();let frames=0,fpsArr=[];let lastT=start,lastF=0;
-
-function loop(){
-const now=performance.now(),el=now-start;
-if(el>=DUR){const avg=fpsArr.length?Math.round(fpsArr.reduce((a,b)=>a+b)/fpsArr.length):0;R.gpu1=avg;tv.textContent=avg+' FPS';resolve();return;}
-for(let i=0;i<N;i++){pos[i*2]+=vel[i*2];pos[i*2+1]+=vel[i*2+1];if(pos[i*2]>1||pos[i*2]<-1)vel[i*2]*=-1;if(pos[i*2+1]>1||pos[i*2+1]<-1)vel[i*2+1]*=-1;}
-gl.clear(gl.COLOR_BUFFER_BIT);gl.bindBuffer(gl.ARRAY_BUFFER,pb);gl.bufferData(gl.ARRAY_BUFFER,pos,gl.DYNAMIC_DRAW);gl.enableVertexAttribArray(aP);gl.vertexAttribPointer(aP,2,gl.FLOAT,false,0,0);gl.drawArrays(gl.POINTS,0,N);
-frames++;
-if(now-lastT>=500){const dt=(now-lastT)/1000;fpsArr.push(Math.round((frames-lastF)/dt));lastT=now;lastF=frames;}
-requestAnimationFrame(loop);
-}
-requestAnimationFrame(loop);
-});
-}
-
-async function testGPU2(tv){
-return new Promise((resolve)=>{
-const canvas=document.createElement('canvas');canvas.width=1024;canvas.height=768;
-let gl;
-try{gl=canvas.getContext('webgl',{antialias:false});if(!gl)throw new Error('No WebGL');}
-catch(e){R.gpu2=0;tv.textContent='N/A';resolve();return;}
-
-// More complex: render many textured quads
-const N=5000;
-const vs=`attribute vec2 p;attribute vec3 c;attribute float r;varying vec3 vc;
-void main(){float cr=cos(r),sr=sin(r);vec2 rp=vec2(p.x*cr-p.y*sr,p.x*sr+p.y*cr);gl_Position=vec4(rp,0,1);gl_PointSize=8.0;vc=c;}`;
-const fs=`precision mediump float;varying vec3 vc;
-void main(){vec2 uv=gl_PointCoord-0.5;float d=length(uv);if(d>0.5)discard;float g=exp(-d*d*8.0);gl_FragColor=vec4(vc*g,g);}`;
-
-function cs(src,type){const s=gl.createShader(type);gl.shaderSource(s,src);gl.compileShader(s);return s;}
-const prog=gl.createProgram();gl.attachShader(prog,cs(vs,gl.VERTEX_SHADER));gl.attachShader(prog,cs(fs,gl.FRAGMENT_SHADER));gl.linkProgram(prog);gl.useProgram(prog);
-
-const aP=gl.getAttribLocation(prog,'p'),aC=gl.getAttribLocation(prog,'c'),aR=gl.getAttribLocation(prog,'r');
-const pos=new Float32Array(N*2),col=new Float32Array(N*3),rot=new Float32Array(N),spd=new Float32Array(N*2);
-for(let i=0;i<N;i++){pos[i*2]=Math.random()*2-1;pos[i*2+1]=Math.random()*2-1;spd[i*2]=(Math.random()-.5)*.008;spd[i*2+1]=(Math.random()-.5)*.008;col[i*3]=Math.random();col[i*3+1]=Math.random();col[i*3+2]=Math.random();rot[i]=Math.random()*6.28;}
-
-const pb=gl.createBuffer(),cb=gl.createBuffer(),rb=gl.createBuffer();
-gl.bindBuffer(gl.ARRAY_BUFFER,cb);gl.bufferData(gl.ARRAY_BUFFER,col,gl.STATIC_DRAW);gl.enableVertexAttribArray(aC);gl.vertexAttribPointer(aC,3,gl.FLOAT,false,0,0);
-gl.enable(gl.BLEND);gl.blendFunc(gl.SRC_ALPHA,gl.ONE);gl.clearColor(0,0,0,1);gl.viewport(0,0,1024,768);
-
-const DUR=8000,start=performance.now();let frames=0,fpsArr=[];let lastT=start,lastF=0;
-
-function loop(){
-const now=performance.now(),el=now-start;
-if(el>=DUR){const avg=fpsArr.length?Math.round(fpsArr.reduce((a,b)=>a+b)/fpsArr.length):0;R.gpu2=avg;tv.textContent=avg+' FPS';resolve();return;}
-for(let i=0;i<N;i++){pos[i*2]+=spd[i*2];pos[i*2+1]+=spd[i*2+1];if(Math.abs(pos[i*2])>1)spd[i*2]*=-1;if(Math.abs(pos[i*2+1])>1)spd[i*2+1]*=-1;rot[i]+=0.02;}
-gl.clear(gl.COLOR_BUFFER_BIT);
-gl.bindBuffer(gl.ARRAY_BUFFER,pb);gl.bufferData(gl.ARRAY_BUFFER,pos,gl.DYNAMIC_DRAW);gl.enableVertexAttribArray(aP);gl.vertexAttribPointer(aP,2,gl.FLOAT,false,0,0);
-gl.bindBuffer(gl.ARRAY_BUFFER,rb);gl.bufferData(gl.ARRAY_BUFFER,rot,gl.DYNAMIC_DRAW);gl.enableVertexAttribArray(aR);gl.vertexAttribPointer(aR,1,gl.FLOAT,false,0,0);
-gl.drawArrays(gl.POINTS,0,N);frames++;
-if(now-lastT>=500){const dt=(now-lastT)/1000;fpsArr.push(Math.round((frames-lastF)/dt));lastT=now;lastF=frames;}
-requestAnimationFrame(loop);
-}
-requestAnimationFrame(loop);
-});
+    function loop(){
+      const now=performance.now(),el=now-st0;
+      if(el>=DUR){const avg=fpsA.length?Math.round(fpsA.reduce((a,b)=>a+b)/fpsA.length):0;R.gpu3=avg;tv.textContent=avg+' FPS';fpsLabel.textContent=`Результат: ${avg} avg FPS`;res();return;}
+      gl.uniform1f(uTime,el/1000);
+      gl.drawArrays(gl.TRIANGLE_STRIP,0,4);fr++;
+      if(now-lT>=500){const dt=(now-lT)/1000;const fps=Math.round((fr-lF)/dt);fpsA.push(fps);lT=now;lF=fr;fpsLabel.textContent=`Raymarching... FPS: ${fps}`;}
+      requestAnimationFrame(loop);
+    }
+    requestAnimationFrame(loop);
+  });
 }
 
-// ===================================================================
-// TEST: MEMORY
-// ===================================================================
-async function testMem(tv,type){
-const SZ=8_000_000;const BYTES=SZ*8;
-await sleep(50);
-if(type==='write'){
-const a=new Float64Array(SZ);const s=performance.now();
-for(let i=0;i<SZ;i++)a[i]=i*1.0001;
-const t=performance.now()-s;const mbs=(BYTES/1048576)/(t/1000);
-R.memWrite=mbs;tv.textContent=Math.round(mbs)+' MB/s';
-}else if(type==='read'){
-const a=new Float64Array(SZ);for(let i=0;i<SZ;i++)a[i]=i;
-await sleep(10);
-let sum=0;const s=performance.now();
-for(let i=0;i<SZ;i++)sum+=a[i];
-const t=performance.now()-s;const mbs=(BYTES/1048576)/(t/1000);
-R.memRead=mbs;tv.textContent=Math.round(mbs)+' MB/s';
-if(sum===-999)console.log(sum);
-}else if(type==='random'){
-const a=new Float64Array(SZ);for(let i=0;i<SZ;i++)a[i]=i;
-const idx=new Uint32Array(2_000_000);for(let i=0;i<idx.length;i++)idx[i]=Math.floor(Math.random()*SZ);
-await sleep(10);
-let sum=0;const s=performance.now();
-for(let i=0;i<idx.length;i++)sum+=a[idx[i]];
-const t=performance.now()-s;const mbs=(idx.length*8/1048576)/(t/1000);
-R.memRand=mbs;tv.textContent=Math.round(mbs)+' MB/s';
-if(sum===-999)console.log(sum);
-}else if(type==='copy'){
-const a=new Float64Array(SZ);const b=new Float64Array(SZ);
-for(let i=0;i<SZ;i++)a[i]=i;
-await sleep(10);
-const s=performance.now();b.set(a);const t=performance.now()-s;
-const mbs=(BYTES/1048576)/(t/1000);
-R.memCopy=mbs;tv.textContent=Math.round(mbs)+' MB/s';
-}
+// ---------------------------------------------------------------
+// MEMORY TESTS
+// ---------------------------------------------------------------
+async function tMem(tv,type){
+  const SZ=8e6;const BY=SZ*8;await sleep(30);
+  if(type==='w'){const a=new Float64Array(SZ);const s=performance.now();for(let i=0;i<SZ;i++)a[i]=i*1.0001;const t=performance.now()-s;const m=(BY/1048576)/(t/1000);R.memW=m;tv.textContent=Math.round(m)+' MB/s';}
+  else if(type==='r'){const a=new Float64Array(SZ);for(let i=0;i<SZ;i++)a[i]=i;await sleep(10);let s2=0;const s=performance.now();for(let i=0;i<SZ;i++)s2+=a[i];const t=performance.now()-s;const m=(BY/1048576)/(t/1000);R.memR=m;tv.textContent=Math.round(m)+' MB/s';if(s2===-1)console.log(s2);}
+  else if(type==='x'){const a=new Float64Array(SZ);for(let i=0;i<SZ;i++)a[i]=i;const idx=new Uint32Array(2e6);for(let i=0;i<idx.length;i++)idx[i]=Math.floor(Math.random()*SZ);await sleep(10);let s2=0;const s=performance.now();for(let i=0;i<idx.length;i++)s2+=a[idx[i]];const t=performance.now()-s;const m=(idx.length*8/1048576)/(t/1000);R.memX=m;tv.textContent=Math.round(m)+' MB/s';if(s2===-1)console.log(s2);}
+  else{const a=new Float64Array(SZ);const b=new Float64Array(SZ);for(let i=0;i<SZ;i++)a[i]=i;await sleep(10);const s=performance.now();b.set(a);const t=performance.now()-s;const m=(BY/1048576)/(t/1000);R.memC=m;tv.textContent=Math.round(m)+' MB/s';}
 }
 
-// ===================================================================
-// TEST: MONITOR Hz
-// ===================================================================
-async function testHz(tv){
-const measures=[];
-for(let run=0;run<3;run++){
-const hz=await new Promise(res=>{
-let f=0;const s=performance.now();
-function c(){f++;if(performance.now()-s<1500)requestAnimationFrame(c);else res(Math.round(f/((performance.now()-s)/1000)));}
-requestAnimationFrame(c);
-});
-measures.push(hz);await sleep(200);
-}
-const avg=Math.round(measures.reduce((a,b)=>a+b)/measures.length);
-R.hz=avg;tv.textContent=avg+' Hz';
+async function tHz(tv){
+  const ms=[];
+  for(let run=0;run<3;run++){
+    const hz=await new Promise(r=>{let f=0;const s=performance.now();function c(){f++;if(performance.now()-s<1500)requestAnimationFrame(c);else r(Math.round(f/((performance.now()-s)/1000)));}requestAnimationFrame(c);});
+    ms.push(hz);await sleep(200);
+  }
+  R.hz=Math.round(ms.reduce((a,b)=>a+b)/ms.length);tv.textContent=R.hz+' Hz';
 }
 
-// ===================================================================
-// TEST: NETWORK
-// ===================================================================
-async function testNet(tv){
-const lats=[];
-const urls=['https://www.google.com/favicon.ico','https://www.cloudflare.com/favicon.ico'];
-for(let i=0;i<6;i++){
-try{
-const s=performance.now();
-await fetch(urls[i%urls.length]+'?_='+Date.now()+Math.random(),{mode:'no-cors',cache:'no-store'});
-lats.push(performance.now()-s);
-}catch(e){}
-await sleep(50);
-}
-const avg=lats.length?Math.round(lats.reduce((a,b)=>a+b)/lats.length):null;
-const conn=navigator.connection||{};
-R.netLat=avg;R.netType=conn.effectiveType||'?';R.netDown=conn.downlink||null;R.netRtt=conn.rtt||null;
-tv.textContent=avg?avg+'ms':'N/A';
+async function tNet(tv){
+  const lats=[];
+  for(let i=0;i<5;i++){try{const s=performance.now();await fetch('https://www.google.com/favicon.ico?_='+Date.now()+Math.random(),{mode:'no-cors',cache:'no-store'});lats.push(performance.now()-s);}catch(e){}await sleep(30);}
+  R.netLat=lats.length?Math.round(lats.reduce((a,b)=>a+b)/lats.length):null;
+  tv.textContent=R.netLat?R.netLat+'ms':'N/A';
 }
 
-// ===================================================================
-// TEST: CANVAS 2D
-// ===================================================================
-async function testCanvas2D(tv){
-const c=document.createElement('canvas');c.width=800;c.height=600;
-const ctx=c.getContext('2d');
-const s=performance.now();let ops=0;
-while(performance.now()-s<3000){
-for(let i=0;i<100;i++){
-ctx.fillStyle=`hsl(${Math.random()*360},80%,50%)`;
-ctx.fillRect(Math.random()*800,Math.random()*600,Math.random()*50+5,Math.random()*50+5);
-ctx.beginPath();ctx.arc(Math.random()*800,Math.random()*600,Math.random()*30+5,0,Math.PI*2);ctx.fill();
-ops++;
-}
-await sleep(0);
-}
-R.canvas2d=ops;tv.textContent=fmt(ops)+' ops';
+async function tC2D(tv){
+  const c=document.createElement('canvas');c.width=800;c.height=600;const ctx=c.getContext('2d');
+  const s=performance.now();let ops=0;
+  while(performance.now()-s<3000){for(let i=0;i<100;i++){ctx.fillStyle=`hsl(${Math.random()*360},80%,50%)`;ctx.fillRect(Math.random()*800,Math.random()*600,Math.random()*50+5,Math.random()*50+5);ctx.beginPath();ctx.arc(Math.random()*800,Math.random()*600,Math.random()*30+5,0,6.28);ctx.fill();ops++;}await sleep(0);}
+  R.c2d=ops;tv.textContent=fmt(ops)+' ops';
 }
 
-// ===================================================================
-// TEST: JS PERFORMANCE
-// ===================================================================
-async function testJSPerf(tv){
-const code=`self.onmessage=function(e){
-const d=e.data.duration,s=performance.now();let ops=0;
-while(performance.now()-s<d){
-// Object creation, JSON, regex, math
-for(let i=0;i<100;i++){
-const o={a:Math.random(),b:'test'+i,c:[1,2,3],d:{x:i}};
-JSON.parse(JSON.stringify(o));
-'Hello World 123 test'.match(/\\d+/g);
-Math.sqrt(Math.pow(i,3)+Math.sin(i)*Math.cos(i));
-ops++;
-}}
-self.postMessage({type:'done',score:ops});};`;
-const r=await cpuWorker(code,3000);
-R.jsperf=r.score;tv.textContent=fmt(r.score)+' ops';
+async function tJS(tv){
+  const code=`self.onmessage=function(e){const d=e.data.duration,s=performance.now();let ops=0;while(performance.now()-s<d){for(let i=0;i<100;i++){const o={a:Math.random(),b:'test'+i,c:[1,2,3]};JSON.parse(JSON.stringify(o));'Hello 123 test'.match(/\\d+/g);Math.sqrt(Math.pow(i,3)+Math.sin(i));ops++;}}self.postMessage({type:'done',score:ops});};`;
+  const r=await cpuWorker(code,3000);R.jsperf=r.score;tv.textContent=fmt(r.score)+' ops';
 }
 
-// ===================================================================
-// TEST: WASM CHECK
-// ===================================================================
-async function testWasm(tv){
-await sleep(100);
-const supported=typeof WebAssembly==='object'&&typeof WebAssembly.instantiate==='function';
-let simd=false;
-try{
-simd=WebAssembly.validate(new Uint8Array([0,97,115,109,1,0,0,0,1,5,1,96,0,1,123,3,2,1,0,10,10,1,8,0,65,0,253,15,253,98,11]));
-}catch(e){}
-R.wasm=supported;R.wasmSimd=simd;
-tv.textContent=supported?(simd?'WASM+SIMD':'WASM ✓'):'Нет';
+async function tWasm(tv){
+  await sleep(80);
+  const sup=typeof WebAssembly==='object';let simd=false;
+  try{simd=WebAssembly.validate(new Uint8Array([0,97,115,109,1,0,0,0,1,5,1,96,0,1,123,3,2,1,0,10,10,1,8,0,65,0,253,15,253,98,11]));}catch(e){}
+  R.wasm=sup;R.wasmSimd=simd;tv.textContent=sup?(simd?'WASM+SIMD':'WASM ✓'):'Нет';
 }
 
-// ===================================================================
-// BUILD RESULTS & GAME FPS PREDICTION
-// ===================================================================
+// ===============================================================
+// BUILD RESULTS
+// ===============================================================
 function buildResults(){
-const el=document.getElementById('resultsContent');
+  const el=document.getElementById('resC');
 
-// Calculate normalized scores (0-100)
-const cpuTotal=(R.cpu1||0)/30e6*40+(R.cpu2||0)/30e6*20+(R.cpu3||0)/5e6*20+(R.cpu4||0)/50e6*20;
-const cpuNorm=Math.min(100,cpuTotal*100);
+  // --- Determine GPU tier ---
+  let gpuTier=R.gpuId?.tier;
+  const gpuBenchAvg=((R.gpu1||0)+(R.gpu2||0)+(R.gpu3||0))/3;
 
-const gpuAvg=((R.gpu1||0)+(R.gpu2||0))/2;
-const gpuNorm=Math.min(100,gpuAvg/180*100);
+  // If GPU was NOT identified in database, estimate tier from WebGL benchmark
+  if(gpuTier===null||gpuTier===undefined){
+    // Map benchmark FPS to approximate tier
+    // Assumption: 60 FPS average across 3 tests ≈ tier 1.0 (GTX 1060)
+    gpuTier=Math.max(0.05,gpuBenchAvg/60);
+    R.gpuId={name:R.gpuId?.name||'Unknown',tier:gpuTier,identified:false,estimatedFromBench:true};
+  }else{
+    // Even if identified, adjust slightly based on actual benchmark (±20%)
+    const benchTier=gpuBenchAvg/60;
+    const blendedTier=gpuTier*0.7+benchTier*0.3;
+    gpuTier=blendedTier;
+  }
 
-const memAvg=((R.memWrite||0)+(R.memRead||0)+(R.memRand||0)+(R.memCopy||0))/4;
-const memNorm=Math.min(100,memAvg/4000*100);
+  R.gpuTierFinal=gpuTier;
 
-const monNorm=Math.min(100,(R.hz||60)/240*100);
+  // Normalized scores 0-100
+  const cpuRaw=(R.cpu1||0)/30e6*40+(R.cpu2||0)/30e6*20+(R.cpu3||0)/5e6*15+(R.cpu4||0)/50e6*15+(R.cpu5||0)/3000*10;
+  const cpuN=Math.min(100,cpuRaw*100);
+  const gpuN=Math.min(100,gpuTier/2.5*100);
+  const memAvg=((R.memW||0)+(R.memR||0)+(R.memX||0)+(R.memC||0))/4;
+  const memN=Math.min(100,memAvg/4000*100);
+  const monN=Math.min(100,(R.hz||60)/240*100);
+  const netN=R.netLat?Math.min(100,Math.max(0,(300-R.netLat)/300*100)):30;
 
-const netNorm=R.netLat?Math.min(100,Math.max(0,(300-R.netLat)/300*100)):30;
+  const overall=cpuN*.25+gpuN*.35+memN*.15+monN*.10+netN*.15;
+  R._n={cpu:cpuN,gpu:gpuN,mem:memN,mon:monN,net:netN,overall};
 
-const weights={cpu:.30,gpu:.30,mem:.15,mon:.10,net:.15};
-const overall=cpuNorm*weights.cpu+gpuNorm*weights.gpu+memNorm*weights.mem+monNorm*weights.mon+netNorm*weights.net;
+  let cat,catCol,catEm,catDesc;
+  if(overall>=82){cat='Ультра-гейминг';catCol='var(--purple)';catEm='🟣';catDesc='Система способна запускать любые современные игры на ультра. Вы в топе.';}
+  else if(overall>=65){cat='Мощный';catCol='var(--cyan)';catEm='🔵';catDesc='Мощная система для высоких настроек в современных AAA-играх.';}
+  else if(overall>=45){cat='Игровой';catCol='var(--green)';catEm='🟢';catDesc='Хорошая система для игр на средних-высоких настройках.';}
+  else if(overall>=25){cat='Офисный';catCol='var(--yellow)';catEm='🟡';catDesc='Для офисной работы и нетребовательных игр.';}
+  else{cat='Бюджетный';catCol='var(--red)';catEm='🟤';catDesc='Рекомендуется апгрейд для комфортных игр.';}
 
-R._norm={cpu:cpuNorm,gpu:gpuNorm,mem:memNorm,mon:monNorm,net:netNorm,overall};
+  // Calculate real game FPS using GPU tier
+  const games=GAMES_DB.map(g=>({
+    name:g.name,emoji:g.emoji,preset:g.preset,year:g.year,
+    fps1080:Math.max(1,Math.round(g.base1080*gpuTier)),
+    fps1440:Math.max(1,Math.round(g.base1440*gpuTier)),
+    fps4k:Math.max(1,Math.round(g.base4k*gpuTier)),
+  }));
 
-let cat,catColor,catEmoji,catDesc;
-if(overall>=85){cat='Ультра-гейминг';catColor='var(--purple)';catEmoji='🟣';catDesc='Ваша система способна запускать любые современные игры на максимальных настройках. Отличные показатели по всем параметрам.';}
-else if(overall>=68){cat='Мощный';catColor='var(--cyan)';catEmoji='🔵';catDesc='Мощная система, уверенно справляющаяся с большинством игр на высоких/ультра настройках.';}
-else if(overall>=48){cat='Игровой';catColor='var(--green)';catEmoji='🟢';catDesc='Хорошая игровая система. Большинство игр будут идти на средних-высоких настройках.';}
-else if(overall>=28){cat='Офисный';catColor='var(--yellow)';catEmoji='🟡';catDesc='Система подходит для офисной работы и нетребовательных игр.';}
-else{cat='Бюджетный';catColor='var(--red)';catEmoji='🟤';catDesc='Бюджетная система. Рекомендуется обновление для комфортной работы.';}
+  let h='';
 
-// Game FPS predictions based on score
-const games=calcGameFPS(overall,cpuNorm,gpuNorm);
+  // VERDICT
+  h+=`<div class="vbox" style="border-color:${catCol}">
+  <div style="font-size:.8rem;color:var(--dim);text-transform:uppercase;letter-spacing:3px">Общая оценка системы</div>
+  <div class="v-sc" style="color:${catCol}">${Math.round(overall)}<span style="font-size:1.3rem;opacity:.4">/100</span></div>
+  <div class="v-cat" style="color:${catCol}">${catEm} ${cat}</div>
+  <div class="v-desc">${catDesc}</div>
+  </div>`;
 
-let html='';
+  // GPU IDENTIFICATION CARD
+  h+=`<div class="card" style="border-color:${R.gpuId?.identified?'var(--green)':'var(--yellow)'}">
+  <div class="card-t">🔍 Идентификация видеокарты</div>
+  <table class="tbl">
+  <tr><td>WebGL Renderer</td><td style="font-size:.72rem">${R.gpuRawRenderer||'?'}</td></tr>
+  <tr><td>Определённая GPU</td><td style="color:${R.gpuId?.identified?'var(--green)':'var(--yellow)'}"><strong>${R.gpuId?.name||'?'}</strong></td></tr>
+  <tr><td>Статус</td><td>${R.gpuId?.identified?'✅ Найдена в базе данных':'⚠️ Определена по бенчмарку WebGL'}</td></tr>
+  <tr><td>Performance Tier</td><td>${gpuTier.toFixed(2)}x (1.0 = GTX 1060)</td></tr>
+  <tr><td>Метод расчёта FPS</td><td>${R.gpuId?.identified?(R.gpuId?.estimatedFromBench?'Бенчмарк':'База GPU + WebGL коррекция'):'Экстраполяция WebGL бенчмарков'}</td></tr>
+  <tr><td>WebGL бенч. среднее</td><td>${gpuBenchAvg.toFixed(0)} FPS по 3 тестам</td></tr>
+  </table></div>`;
 
-// === VERDICT ===
-html+=`<div class="verdict-box" style="border-color:${catColor}">
-<div style="font-size:.9rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:3px">Общая оценка системы</div>
-<div class="verdict-score" style="color:${catColor}">${Math.round(overall)}<span style="font-size:1.5rem;opacity:.5">/100</span></div>
-<div class="verdict-cat" style="color:${catColor}">${catEmoji} ${cat}</div>
-<div class="verdict-desc">${catDesc}</div>
-</div>`;
+  // SCORES GRID
+  h+=`<div class="rg">
+  <div class="ri"><div class="ri-l">🖥️ ОС</div><div class="ri-v" style="font-size:.95rem">${R.sys?.os||'?'}</div></div>
+  <div class="ri"><div class="ri-l">⚡ CPU Score</div><div class="ri-v">${Math.round(cpuN)}</div><div class="ri-s">${R.sys?.cores||'?'} ядер</div></div>
+  <div class="ri"><div class="ri-l">🎮 GPU Score</div><div class="ri-v">${Math.round(gpuN)}</div><div class="ri-s">Tier ${gpuTier.toFixed(2)}x</div></div>
+  <div class="ri"><div class="ri-l">🧠 RAM Score</div><div class="ri-v">${Math.round(memN)}</div><div class="ri-s">${R.sys?.ram||'?'}</div></div>
+  <div class="ri"><div class="ri-l">🖵 Монитор</div><div class="ri-v">${R.hz||'?'}<span style="font-size:.75rem">Hz</span></div><div class="ri-s">${R.sys?.screen||'?'}</div></div>
+  <div class="ri"><div class="ri-l">🌐 Сеть</div><div class="ri-v">${R.netLat||'?'}<span style="font-size:.75rem">ms</span></div></div>
+  </div>`;
 
-// === SCORES GRID ===
-html+=`<div class="rep-grid">
-<div class="rep-item"><div class="rep-label">🖥️ ОС</div><div class="rep-val" style="font-size:1rem">${R.sys?.os||'?'}</div></div>
-<div class="rep-item"><div class="rep-label">⚡ CPU</div><div class="rep-val">${Math.round(cpuNorm)}</div><div class="rep-sub">${R.sys?.cores||'?'} ядер</div></div>
-<div class="rep-item"><div class="rep-label">🎮 GPU</div><div class="rep-val">${Math.round(gpuNorm)}</div><div class="rep-sub">${gpuAvg.toFixed(0)} avg FPS</div></div>
-<div class="rep-item"><div class="rep-label">🧠 RAM</div><div class="rep-val">${Math.round(memNorm)}</div><div class="rep-sub">${R.sys?.ram||'?'}</div></div>
-<div class="rep-item"><div class="rep-label">🖵 Монитор</div><div class="rep-val">${R.hz||'?'}<span style="font-size:.8rem">Hz</span></div><div class="rep-sub">${R.sys?.screen||'?'}</div></div>
-<div class="rep-item"><div class="rep-label">🌐 Сеть</div><div class="rep-val">${R.netLat||'?'}<span style="font-size:.8rem">ms</span></div><div class="rep-sub">${R.netType||'?'}</div></div>
-</div>`;
+  // RADAR
+  h+=`<div class="card"><div class="card-t">📊 Профиль системы</div><div class="chart-c"><canvas id="rCh"></canvas></div></div>`;
 
-// === RADAR CHART ===
-html+=`<div class="card" style="margin-top:16px"><div class="card-t">📊 Профиль системы</div>
-<div class="chart-c"><canvas id="radarCh"></canvas></div></div>`;
+  // GAME FPS PREDICTION
+  h+=`<div class="card"><div class="card-t">🎮 Прогноз FPS в современных играх</div>
+  <div class="card-d">Расчёт на основе ${R.gpuId?.identified?'базы данных GPU ('+R.gpuId.name+') + коррекция по WebGL бенчмаркам':'экстраполяции результатов WebGL бенчмарков'}. Tier: ${gpuTier.toFixed(2)}x относительно GTX 1060.</div>
+  <div class="games-grid">`;
+  games.forEach(g=>{
+    h+=`<div class="gc"><div class="gc-img">${g.emoji}</div><div class="gc-info">
+    <div class="gc-name">${g.name} <span style="font-size:.6rem;color:var(--dim)">${g.year}</span></div>
+    <div class="gc-row"><span class="gc-lbl">1080p ${g.preset}</span><span class="gc-fps" style="color:${fpsCol(g.fps1080)}">${g.fps1080} FPS</span></div>
+    <div class="fps-bar"><div class="fps-fill" style="width:${Math.min(100,g.fps1080/1.5)}%;background:${fpsCol(g.fps1080)}"></div></div>
+    <div class="gc-row" style="margin-top:5px"><span class="gc-lbl">1440p</span><span class="gc-fps" style="color:${fpsCol(g.fps1440)}">${g.fps1440}</span></div>
+    <div class="fps-bar"><div class="fps-fill" style="width:${Math.min(100,g.fps1440/1.5)}%;background:${fpsCol(g.fps1440)}"></div></div>
+    <div class="gc-row" style="margin-top:5px"><span class="gc-lbl">4K</span><span class="gc-fps" style="color:${fpsCol(g.fps4k)}">${g.fps4k}</span></div>
+    <div class="fps-bar"><div class="fps-fill" style="width:${Math.min(100,g.fps4k/1.5)}%;background:${fpsCol(g.fps4k)}"></div></div>
+    </div></div>`;
+  });
+  h+=`</div></div>`;
 
-// === DETAILED RESULTS TABLE ===
-html+=`<div class="card"><div class="card-t">📋 Детальные результаты тестов</div>
-<table class="tbl tbl-alt">
-<tr><td>⚡ CPU Мандельброт</td><td>${fmt(R.cpu1||0)} итераций</td></tr>
-<tr><td>🔐 CPU Хэширование</td><td>${fmt(R.cpu2||0)} операций</td></tr>
-<tr><td>📊 CPU Сортировка</td><td>${fmt(R.cpu3||0)} элементов</td></tr>
-<tr><td>🔢 CPU Вычисление π</td><td>${fmt(R.cpu4||0)} итераций</td></tr>
-<tr><td>🎮 GPU Частицы 15K</td><td>${R.gpu1||0} FPS</td></tr>
-<tr><td>🌐 GPU Сложная сцена</td><td>${R.gpu2||0} FPS</td></tr>
-<tr><td>✏️ RAM Запись</td><td>${Math.round(R.memWrite||0)} MB/s</td></tr>
-<tr><td>📖 RAM Чтение</td><td>${Math.round(R.memRead||0)} MB/s</td></tr>
-<tr><td>🎲 RAM Случайный</td><td>${Math.round(R.memRand||0)} MB/s</td></tr>
-<tr><td>📋 RAM Копирование</td><td>${Math.round(R.memCopy||0)} MB/s</td></tr>
-<tr><td>🖵 Частота монитора</td><td>${R.hz||'?'} Hz</td></tr>
-<tr><td>🌐 Латентность сети</td><td>${R.netLat||'?'} мс</td></tr>
-<tr><td>🎨 Canvas 2D</td><td>${fmt(R.canvas2d||0)} операций</td></tr>
-<tr><td>🏎️ JS Performance</td><td>${fmt(R.jsperf||0)} операций</td></tr>
-<tr><td>⚙️ WebAssembly</td><td>${R.wasm?'✅'+(R.wasmSimd?' + SIMD':''):'❌'}</td></tr>
-<tr><td>🎮 GPU Renderer</td><td>${R.sys?.gpuRenderer||'?'}</td></tr>
-<tr><td>🌐 Браузер</td><td>${R.sys?.browser||'?'}</td></tr>
-<tr><td>📏 DPR</td><td>${R.sys?.dpr||'?'}</td></tr>
-<tr><td>🔋 WebGL2</td><td>${R.sys?.webgl2?'✅':'❌'}</td></tr>
-</table></div>`;
+  // GAME FPS CHART
+  h+=`<div class="card"><div class="card-t">📊 FPS по играм (1080p)</div><div class="chart-c"><canvas id="gCh"></canvas></div></div>`;
 
-// === CPU COMPARISON CHART ===
-html+=`<div class="card"><div class="card-t">⚡ CPU: Сравнение с референсами</div>
-<div class="chart-c"><canvas id="cpuCh"></canvas></div></div>`;
+  // DETAILED RESULTS
+  h+=`<div class="card"><div class="card-t">📋 Все результаты тестов</div><table class="tbl">
+  <tr><td>⚡ CPU Мандельброт (5с)</td><td>${fmt(R.cpu1||0)} итераций</td></tr>
+  <tr><td>🔐 CPU Хэш</td><td>${fmt(R.cpu2||0)} ops</td></tr>
+  <tr><td>📊 CPU Сортировка</td><td>${fmt(R.cpu3||0)} элементов</td></tr>
+  <tr><td>🔢 CPU π</td><td>${fmt(R.cpu4||0)} итераций</td></tr>
+  <tr><td>🧮 CPU Матрицы</td><td>${fmt(R.cpu5||0)} умножений</td></tr>
+  <tr><td>🎮 GPU 15K частиц</td><td>${R.gpu1||0} FPS (min:${R.gpu1min||'?'} max:${R.gpu1max||'?'})</td></tr>
+  <tr><td>🌐 GPU Освещение</td><td>${R.gpu2||0} FPS</td></tr>
+  <tr><td>🎆 GPU Raymarching</td><td>${R.gpu3||0} FPS</td></tr>
+  <tr><td>💾 RAM Запись</td><td>${Math.round(R.memW||0)} MB/s</td></tr>
+  <tr><td>📖 RAM Чтение</td><td>${Math.round(R.memR||0)} MB/s</td></tr>
+  <tr><td>🎲 RAM Случайный</td><td>${Math.round(R.memX||0)} MB/s</td></tr>
+  <tr><td>📋 RAM Копирование</td><td>${Math.round(R.memC||0)} MB/s</td></tr>
+  <tr><td>🖵 Монитор</td><td>${R.hz||'?'} Hz</td></tr>
+  <tr><td>🌐 Латентность</td><td>${R.netLat||'?'} мс</td></tr>
+  <tr><td>🎨 Canvas 2D</td><td>${fmt(R.c2d||0)} ops</td></tr>
+  <tr><td>🏎️ JS Perf</td><td>${fmt(R.jsperf||0)} ops</td></tr>
+  <tr><td>⚙️ WASM</td><td>${R.wasm?'✅':'❌'} ${R.wasmSimd?'+SIMD':''}</td></tr>
+  <tr><td>🎮 GPU (WebGL)</td><td style="font-size:.7rem">${R.gpuRawRenderer||'?'}</td></tr>
+  </table></div>`;
 
-// === GAME FPS PREDICTION ===
-html+=`<div class="card"><div class="card-t">🎮 Прогноз FPS в современных играх</div>
-<div class="card-d">Примерный FPS на основе результатов тестов (1080p, настройки указаны)</div>
-<div class="games-grid" id="gamesGrid">`;
-games.forEach(g=>{
-const fps1080=g.fps1080;const fps1440=g.fps1440;const fps4k=g.fps4k;
-html+=`<div class="game-card">
-<div class="game-img">${g.emoji}</div>
-<div class="game-info">
-<div class="game-name">${g.name}</div>
-<div class="game-fps-row">
-<span class="game-fps-label">1080p ${g.preset}</span>
-<span class="game-fps-val" style="color:${fpsColor(fps1080)}">${fps1080} FPS</span>
-</div>
-<div class="fps-bar"><div class="fps-bar-fill" style="width:${Math.min(100,fps1080/1.5)}%;background:${fpsColor(fps1080)}"></div></div>
-<div class="game-fps-row" style="margin-top:6px">
-<span class="game-fps-label">1440p ${g.preset}</span>
-<span class="game-fps-val" style="color:${fpsColor(fps1440)}">${fps1440} FPS</span>
-</div>
-<div class="fps-bar"><div class="fps-bar-fill" style="width:${Math.min(100,fps1440/1.5)}%;background:${fpsColor(fps1440)}"></div></div>
-<div class="game-fps-row" style="margin-top:6px">
-<span class="game-fps-label">4K ${g.preset}</span>
-<span class="game-fps-val" style="color:${fpsColor(fps4k)}">${fps4k} FPS</span>
-</div>
-<div class="fps-bar"><div class="fps-bar-fill" style="width:${Math.min(100,fps4k/1.5)}%;background:${fpsColor(fps4k)}"></div></div>
-</div></div>`;
-});
-html+=`</div></div>`;
+  // SYSTEM INFO
+  h+=`<div class="card"><div class="card-t">🖥️ Полная информация</div><table class="tbl">
+  <tr><td>ОС</td><td>${R.sys?.os||'?'}</td></tr>
+  <tr><td>Браузер</td><td>${R.sys?.browser||'?'}</td></tr>
+  <tr><td>CPU ядра</td><td>${R.sys?.cores||'?'}</td></tr>
+  <tr><td>RAM (API)</td><td>${R.sys?.ram||'?'}</td></tr>
+  <tr><td>Экран</td><td>${R.sys?.screen||'?'} @ ${R.sys?.colorDepth||'?'}bit, DPR ${R.sys?.dpr||'?'}</td></tr>
+  <tr><td>GPU Vendor</td><td>${R.sys?.gpuVendor||'?'}</td></tr>
+  <tr><td>GPU Renderer</td><td style="font-size:.7rem">${R.sys?.gpuRenderer||'?'}</td></tr>
+  <tr><td>WebGL2</td><td>${R.sys?.webgl2?'✅':'❌'}</td></tr>
+  <tr><td>Max Texture</td><td>${R.sys?.maxTex||'?'}px</td></tr>
+  <tr><td>Platform</td><td>${R.sys?.platform||'?'}</td></tr>
+  <tr><td>Язык</td><td>${R.sys?.lang||'?'}</td></tr>
+  <tr><td>Часовой пояс</td><td>${R.sys?.tz||'?'}</td></tr>
+  </table></div>`;
 
-// === GAME FPS BAR CHART ===
-html+=`<div class="card"><div class="card-t">📊 FPS по играм (1080p)</div>
-<div class="chart-c"><canvas id="gameCh"></canvas></div></div>`;
+  // EXPORT
+  h+=`<div style="text-align:center;margin:18px 0">
+  <button class="btn btn-green" onclick="expTxt()">📄 Скачать .txt</button>
+  <button class="btn btn-pink" onclick="expHtml()">📄 Скачать .html</button></div>`;
 
-// === SYSTEM INFO TABLE ===
-html+=`<div class="card"><div class="card-t">🖥️ Полная информация о системе</div>
-<table class="tbl tbl-alt">
-<tr><td>ОС</td><td>${R.sys?.os||'?'}</td></tr>
-<tr><td>Браузер</td><td>${R.sys?.browser||'?'}</td></tr>
-<tr><td>Ядра CPU</td><td>${R.sys?.cores||'?'}</td></tr>
-<tr><td>RAM (API)</td><td>${R.sys?.ram||'?'}</td></tr>
-<tr><td>Экран</td><td>${R.sys?.screen||'?'} @ ${R.sys?.colorDepth||'?'}bit</td></tr>
-<tr><td>DPR</td><td>${R.sys?.dpr||'?'}</td></tr>
-<tr><td>GPU Vendor</td><td>${R.sys?.gpuVendor||'?'}</td></tr>
-<tr><td>GPU Renderer</td><td>${R.sys?.gpuRenderer||'?'}</td></tr>
-<tr><td>Язык</td><td>${R.sys?.lang||'?'}</td></tr>
-<tr><td>Часовой пояс</td><td>${R.sys?.tz||'?'}</td></tr>
-<tr><td>Соединение</td><td>${R.sys?.connType||'?'} / ${R.sys?.connDown||'?'} Мбит/с</td></tr>
-<tr><td>Platform</td><td>${R.sys?.platform||'?'}</td></tr>
-<tr><td>WebGL2</td><td>${R.sys?.webgl2?'✅':'❌'}</td></tr>
-<tr><td>WASM</td><td>${R.wasm?'✅':'❌'} ${R.wasmSimd?'+ SIMD':''}</td></tr>
-<tr><td>Cookies</td><td>${R.sys?.cookiesEnabled?'✅':'❌'}</td></tr>
-<tr><td>Touch</td><td>${R.sys?.maxTouch||0} точек</td></tr>
-</table></div>`;
+  // CPU COMPARISON CHART
+  h+=`<div class="card"><div class="card-t">⚡ CPU: Сравнение</div><div class="chart-c"><canvas id="cCh"></canvas></div></div>`;
 
-// === EXPORT ===
-html+=`<div style="text-align:center;margin:20px 0">
-<button class="btn btn-green" onclick="exportTxt()">📄 Скачать .txt</button>
-<button class="btn btn-pink" onclick="exportHtml()">📄 Скачать .html</button>
-</div>`;
-
-el.innerHTML=html;
-
-// Build charts after DOM update
-setTimeout(()=>{buildCharts(cpuNorm,gpuNorm,memNorm,monNorm,netNorm,games);},100);
+  el.innerHTML=h;
+  setTimeout(()=>buildCharts(cpuN,gpuN,memN,monN,netN,games),80);
 }
 
-function calcGameFPS(overall,cpuN,gpuN){
-// Game database with base FPS at score=50 (medium system), scaling factor
-const gamesDB=[
-{name:'Cyberpunk 2077',emoji:'🌃',base1080:45,base1440:32,base4k:18,cpuW:.3,gpuW:.7,preset:'Высокие'},
-{name:'Red Dead Redemption 2',emoji:'🤠',base1080:50,base1440:38,base4k:22,cpuW:.35,gpuW:.65,preset:'Высокие'},
-{name:'Elden Ring',emoji:'⚔️',base1080:55,base1440:42,base4k:25,cpuW:.3,gpuW:.7,preset:'Максимум'},
-{name:'Hogwarts Legacy',emoji:'🧙',base1080:48,base1440:35,base4k:20,cpuW:.3,gpuW:.7,preset:'Высокие'},
-{name:'Starfield',emoji:'🚀',base1080:42,base1440:30,base4k:16,cpuW:.35,gpuW:.65,preset:'Высокие'},
-{name:'CS2',emoji:'🔫',base1080:120,base1440:95,base4k:60,cpuW:.5,gpuW:.5,preset:'Высокие'},
-{name:'Fortnite',emoji:'🏗️',base1080:100,base1440:75,base4k:45,cpuW:.4,gpuW:.6,preset:'Эпические'},
-{name:'Baldur\'s Gate 3',emoji:'🐉',base1080:55,base1440:42,base4k:24,cpuW:.4,gpuW:.6,preset:'Ультра'},
-{name:'Call of Duty: MW3',emoji:'💣',base1080:80,base1440:60,base4k:35,cpuW:.35,gpuW:.65,preset:'Высокие'},
-{name:'GTA V',emoji:'🚗',base1080:90,base1440:70,base4k:40,cpuW:.4,gpuW:.6,preset:'Очень выс.'},
-{name:'Minecraft (шейдеры)',emoji:'⛏️',base1080:75,base1440:55,base4k:30,cpuW:.5,gpuW:.5,preset:'Шейдеры'},
-{name:'Valorant',emoji:'🎯',base1080:180,base1440:140,base4k:90,cpuW:.6,gpuW:.4,preset:'Высокие'},
-];
+function buildCharts(cN,gN,mN,moN,nN,games){
+  // Radar
+  const rc=document.getElementById('rCh');
+  if(rc)new Chart(rc,{type:'radar',data:{labels:['CPU','GPU','RAM','Монитор','Сеть'],datasets:[{label:'Система',data:[cN,gN,mN,moN,nN],backgroundColor:'rgba(0,240,255,.1)',borderColor:'#00f0ff',borderWidth:2,pointBackgroundColor:'#00f0ff',pointRadius:4}]},options:{responsive:true,plugins:{legend:{display:false}},scales:{r:{min:0,max:100,ticks:{color:'#6a6a8a',backdropColor:'transparent',stepSize:20},grid:{color:'rgba(255,255,255,.07)'},pointLabels:{color:'#99a',font:{family:'Share Tech Mono',size:12}},angleLines:{color:'rgba(255,255,255,.07)'}}}}});
 
-return gamesDB.map(g=>{
-const factor=(cpuN*g.cpuW+gpuN*g.gpuW)/50;
-return{
-name:g.name,emoji:g.emoji,preset:g.preset,
-fps1080:Math.round(g.base1080*factor),
-fps1440:Math.round(g.base1440*factor),
-fps4k:Math.round(g.base4k*factor),
-};
-});
+  // Games chart
+  const gc=document.getElementById('gCh');
+  if(gc)new Chart(gc,{type:'bar',data:{labels:games.map(g=>g.name),datasets:[{label:'1080p',data:games.map(g=>g.fps1080),backgroundColor:'rgba(0,240,255,.35)',borderColor:'#00f0ff',borderWidth:1},{label:'1440p',data:games.map(g=>g.fps1440),backgroundColor:'rgba(0,255,136,.35)',borderColor:'#00ff88',borderWidth:1},{label:'4K',data:games.map(g=>g.fps4k),backgroundColor:'rgba(255,0,170,.35)',borderColor:'#ff00aa',borderWidth:1}]},options:{responsive:true,plugins:{legend:{labels:{color:'#99a',font:{family:'Share Tech Mono'}}},title:{display:true,text:'Прогноз FPS (GPU tier: '+(R.gpuTierFinal||0).toFixed(2)+'x)',color:'#6a6a8a',font:{family:'Share Tech Mono'}}},scales:{x:{ticks:{color:'#6a6a8a',font:{size:7},maxRotation:45},grid:{display:false}},y:{ticks:{color:'#6a6a8a'},grid:{color:'rgba(255,255,255,.03)'},title:{display:true,text:'FPS',color:'#6a6a8a'}}}}});
+
+  // CPU comparison
+  const cc=document.getElementById('cCh');
+  if(cc){
+    const refs=[{l:'Atom',v:2e6},{l:'i3-10100',v:8e6},{l:'i5-12400',v:15e6},{l:'R5 5600X',v:18e6},{l:'R7 5800X',v:22e6},{l:'i9-13900K',v:35e6},{l:'Вы',v:R.cpu1||0}];
+    new Chart(cc,{type:'bar',data:{labels:refs.map(r=>r.l),datasets:[{data:refs.map(r=>r.v),backgroundColor:refs.map((r,i)=>i===refs.length-1?'rgba(0,240,255,.5)':'rgba(255,0,170,.2)'),borderColor:refs.map((r,i)=>i===refs.length-1?'#00f0ff':'#ff00aa'),borderWidth:1}]},options:{responsive:true,indexAxis:'y',plugins:{legend:{display:false}},scales:{x:{ticks:{color:'#6a6a8a',callback:v=>fmt(v)},grid:{color:'rgba(255,255,255,.03)'}},y:{ticks:{color:'#6a6a8a',font:{size:10}},grid:{display:false}}}}});
+  }
 }
 
-function buildCharts(cpuN,gpuN,memN,monN,netN,games){
-// Radar
-const rc=document.getElementById('radarCh');
-if(rc){
-new Chart(rc,{type:'radar',data:{
-labels:['CPU','GPU','RAM','Монитор','Сеть'],
-datasets:[{label:'Система',data:[cpuN,gpuN,memN,monN,netN],
-backgroundColor:'rgba(0,240,255,.12)',borderColor:'#00f0ff',borderWidth:2,
-pointBackgroundColor:'#00f0ff',pointRadius:4}]
-},options:{responsive:true,plugins:{legend:{display:false}},
-scales:{r:{min:0,max:100,ticks:{color:'#6a6a8a',backdropColor:'transparent',stepSize:20},
-grid:{color:'rgba(255,255,255,.08)'},pointLabels:{color:'#aab',font:{family:'Share Tech Mono',size:12}},
-angleLines:{color:'rgba(255,255,255,.08)'}}}}});
-}
-
-// CPU comparison
-const cc=document.getElementById('cpuCh');
-if(cc){
-const refs=[
-{l:'Atom N2800',v:2e6},{l:'i3-10100',v:8e6},{l:'i5-12400',v:15e6},
-{l:'R5 5600X',v:18e6},{l:'R7 5800X',v:22e6},{l:'i9-13900K',v:35e6},
-{l:'Вы',v:R.cpu1||0}
-];
-new Chart(cc,{type:'bar',data:{
-labels:refs.map(r=>r.l),
-datasets:[{data:refs.map(r=>r.v),
-backgroundColor:refs.map((r,i)=>i===refs.length-1?'rgba(0,240,255,.5)':'rgba(255,0,170,.25)'),
-borderColor:refs.map((r,i)=>i===refs.length-1?'#00f0ff':'#ff00aa'),borderWidth:1}]
-},options:{responsive:true,indexAxis:'y',plugins:{legend:{display:false},
-title:{display:true,text:'Мандельброт: итерации за 5 секунд',color:'#6a6a8a',font:{family:'Share Tech Mono'}}},
-scales:{x:{ticks:{color:'#6a6a8a',callback:v=>fmt(v)},grid:{color:'rgba(255,255,255,.04)'}},
-y:{ticks:{color:'#6a6a8a',font:{size:10}},grid:{display:false}}}}});
-}
-
-// Game FPS chart
-const gc=document.getElementById('gameCh');
-if(gc){
-new Chart(gc,{type:'bar',data:{
-labels:games.map(g=>g.name),
-datasets:[
-{label:'1080p',data:games.map(g=>g.fps1080),backgroundColor:'rgba(0,240,255,.4)',borderColor:'#00f0ff',borderWidth:1},
-{label:'1440p',data:games.map(g=>g.fps1440),backgroundColor:'rgba(0,255,136,.4)',borderColor:'#00ff88',borderWidth:1},
-{label:'4K',data:games.map(g=>g.fps4k),backgroundColor:'rgba(255,0,170,.4)',borderColor:'#ff00aa',borderWidth:1}
-]
-},options:{responsive:true,plugins:{legend:{labels:{color:'#aab',font:{family:'Share Tech Mono'}}},
-title:{display:true,text:'Прогноз FPS (приблизительно)',color:'#6a6a8a',font:{family:'Share Tech Mono'}}},
-scales:{x:{ticks:{color:'#6a6a8a',font:{size:8},maxRotation:45},grid:{display:false}},
-y:{ticks:{color:'#6a6a8a'},grid:{color:'rgba(255,255,255,.04)'},
-title:{display:true,text:'FPS',color:'#6a6a8a'}}}}});
-}
-}
-
-// ===================================================================
+// ===============================================================
 // EXPORT
-// ===================================================================
-function exportTxt(){
-let t='=== CYBERAUDIT PRO — Отчёт ===\n'+new Date().toLocaleString()+'\n\n';
-t+='--- Система ---\n';
-if(R.sys){Object.entries(R.sys).forEach(([k,v])=>{t+=k+': '+v+'\n';});}
-t+='\n--- CPU ---\n';
-t+='Мандельброт: '+fmt(R.cpu1||0)+'\nХэш: '+fmt(R.cpu2||0)+'\nСортировка: '+fmt(R.cpu3||0)+'\nPi: '+fmt(R.cpu4||0)+'\n';
-t+='\n--- GPU ---\n';
-t+='Частицы: '+(R.gpu1||0)+' FPS\nСцена: '+(R.gpu2||0)+' FPS\n';
-t+='\n--- RAM ---\n';
-t+='Запись: '+Math.round(R.memWrite||0)+' MB/s\nЧтение: '+Math.round(R.memRead||0)+' MB/s\n';
-t+='Случайный: '+Math.round(R.memRand||0)+' MB/s\nКопирование: '+Math.round(R.memCopy||0)+' MB/s\n';
-t+='\n--- Монитор ---\n'+(R.hz||'?')+' Hz\n';
-t+='\n--- Сеть ---\nЛатентность: '+(R.netLat||'?')+' мс\n';
-t+='\n--- Общая оценка ---\n'+Math.round(R._norm?.overall||0)+'/100\n';
-
-const b=new Blob([t],{type:'text/plain;charset=utf-8'});
-const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='cyberaudit_report.txt';a.click();
+// ===============================================================
+function expTxt(){
+  let t='=== CYBERAUDIT PRO v3 ===\n'+new Date().toLocaleString()+'\n\n';
+  t+='GPU: '+(R.gpuId?.name||'?')+' (tier '+(R.gpuTierFinal||0).toFixed(2)+'x)\n';
+  t+='WebGL renderer: '+(R.gpuRawRenderer||'?')+'\n\n';
+  t+='CPU Mandelbrot: '+fmt(R.cpu1||0)+'\nCPU Hash: '+fmt(R.cpu2||0)+'\n';
+  t+='GPU 15K: '+(R.gpu1||0)+' FPS\nGPU Lit: '+(R.gpu2||0)+' FPS\nGPU Raym: '+(R.gpu3||0)+' FPS\n';
+  t+='RAM W:'+Math.round(R.memW||0)+' R:'+Math.round(R.memR||0)+' Rand:'+Math.round(R.memX||0)+' Copy:'+Math.round(R.memC||0)+' MB/s\n';
+  t+='Monitor: '+(R.hz||'?')+'Hz\nNet: '+(R.netLat||'?')+'ms\n';
+  t+='Overall: '+Math.round(R._n?.overall||0)+'/100\n';
+  const b=new Blob([t],{type:'text/plain;charset=utf-8'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='cyberaudit.txt';a.click();
+}
+function expHtml(){
+  let h=`<!DOCTYPE html><html><head><meta charset="UTF-8"><title>CyberAudit Report</title><style>body{background:#0a0a0f;color:#e0e0f0;font-family:monospace;padding:40px;max-width:800px;margin:0 auto}h1{color:#00f0ff;text-align:center}h2{color:#ff00aa;border-bottom:1px solid #1e1e3a;padding-bottom:5px;margin-top:20px}td{padding:6px 8px;border-bottom:1px solid #1e1e3a}td:first-child{color:#6a6a8a}td:last-child{color:#00f0ff}table{width:100%;border-collapse:collapse}.sc{text-align:center;font-size:3rem;color:#00f0ff;margin:15px}</style></head><body>`;
+  h+=`<h1>⚡ CyberAudit Pro v3</h1><p style="text-align:center;color:#6a6a8a">${new Date().toLocaleString()}</p>`;
+  h+=`<div class="sc">${Math.round(R._n?.overall||0)}/100</div>`;
+  h+=`<h2>🎮 GPU</h2><table><tr><td>GPU</td><td>${R.gpuId?.name||'?'}</td></tr><tr><td>Tier</td><td>${(R.gpuTierFinal||0).toFixed(2)}x</td></tr><tr><td>WebGL</td><td>${R.gpuRawRenderer||'?'}</td></tr></table>`;
+  h+=`<h2>⚡ CPU</h2><table><tr><td>Mandelbrot</td><td>${fmt(R.cpu1||0)}</td></tr><tr><td>Hash</td><td>${fmt(R.cpu2||0)}</td></tr></table>`;
+  h+=`<h2>GPU Benchmarks</h2><table><tr><td>15K Particles</td><td>${R.gpu1||0} FPS</td></tr><tr><td>Lit Objects</td><td>${R.gpu2||0} FPS</td></tr><tr><td>Raymarching</td><td>${R.gpu3||0} FPS</td></tr></table>`;
+  h+='</body></html>';
+  const b=new Blob([h],{type:'text/html;charset=utf-8'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='cyberaudit.html';a.click();
 }
 
-function exportHtml(){
-const o=R._norm?.overall||0;
-let h=`<!DOCTYPE html><html><head><meta charset="UTF-8"><title>CyberAudit Report</title>
-<style>body{background:#0a0a0f;color:#e0e0f0;font-family:'Courier New',monospace;padding:40px;max-width:850px;margin:0 auto}
-h1{color:#00f0ff;text-align:center}h2{color:#ff00aa;border-bottom:1px solid #1e1e3a;padding-bottom:6px;margin-top:25px}
-table{width:100%;border-collapse:collapse}td{padding:7px 10px;border-bottom:1px solid #1e1e3a}
-td:first-child{color:#6a6a8a}td:last-child{color:#00f0ff}.sc{text-align:center;font-size:3rem;color:#00f0ff;margin:20px}
-.dt{text-align:center;color:#6a6a8a;font-size:.85rem}</style></head><body>
-<h1>⚡ CYBERAUDIT PRO</h1><p class="dt">${new Date().toLocaleString()}</p>
-<div class="sc">${Math.round(o)}/100</div>`;
-h+='<h2>🖥️ Система</h2><table>';
-if(R.sys)Object.entries(R.sys).forEach(([k,v])=>{h+=`<tr><td>${k}</td><td>${v}</td></tr>`;});
-h+='</table><h2>⚡ CPU</h2><table>';
-h+=`<tr><td>Мандельброт</td><td>${fmt(R.cpu1||0)}</td></tr>`;
-h+=`<tr><td>Хэш</td><td>${fmt(R.cpu2||0)}</td></tr>`;
-h+=`<tr><td>Сортировка</td><td>${fmt(R.cpu3||0)}</td></tr>`;
-h+=`<tr><td>Pi</td><td>${fmt(R.cpu4||0)}</td></tr></table>`;
-h+=`<h2>🎮 GPU</h2><table><tr><td>Частицы</td><td>${R.gpu1||0} FPS</td></tr><tr><td>Сцена</td><td>${R.gpu2||0} FPS</td></tr></table>`;
-h+=`<h2>🧠 RAM</h2><table><tr><td>Запись</td><td>${Math.round(R.memWrite||0)} MB/s</td></tr>`;
-h+=`<tr><td>Чтение</td><td>${Math.round(R.memRead||0)} MB/s</td></tr>`;
-h+=`<tr><td>Случайный</td><td>${Math.round(R.memRand||0)} MB/s</td></tr>`;
-h+=`<tr><td>Копирование</td><td>${Math.round(R.memCopy||0)} MB/s</td></tr></table>`;
-h+=`<h2>🖵 Монитор</h2><p style="color:#00f0ff;font-size:1.3rem">${R.hz||'?'} Hz</p>`;
-h+=`<h2>🌐 Сеть</h2><p>Латентность: ${R.netLat||'?'} мс</p>`;
-h+='</body></html>';
+// ===============================================================
+// INTERACTIVE: MONITOR
+// ===============================================================
+let dpCols=['#f00','#0f0','#00f','#fff','#000','#ff0','#f0f','#0ff'],dpI=0;
+function startDP(){dpI=0;const o=document.getElementById('dpOv');o.style.backgroundColor=dpCols[0];o.classList.add('vis');try{document.documentElement.requestFullscreen().catch(()=>{});}catch(e){}}
+document.getElementById('dpOv').addEventListener('click',()=>{dpI++;if(dpI>=dpCols.length)exitDP();else document.getElementById('dpOv').style.backgroundColor=dpCols[dpI];});
+document.addEventListener('keydown',e=>{if(!document.getElementById('dpOv').classList.contains('vis'))return;if(e.key===' '){e.preventDefault();dpI++;if(dpI>=dpCols.length)exitDP();else document.getElementById('dpOv').style.backgroundColor=dpCols[dpI];}else if(e.key==='Escape')exitDP();});
+function exitDP(){document.getElementById('dpOv').classList.remove('vis');if(document.fullscreenElement)document.exitFullscreen().catch(()=>{});}
 
-const b=new Blob([h],{type:'text/html;charset=utf-8'});
-const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='cyberaudit_report.html';a.click();
-}
+function drawGrad(){const c=document.getElementById('gradCv');c.style.display='block';document.getElementById('gradH').style.display='block';const x=c.getContext('2d'),w=c.width,h=c.height,bh=h/5;
+for(let i=0;i<w;i++){const v=Math.round(i/w*255);x.fillStyle=`rgb(${v},${v},${v})`;x.fillRect(i,0,1,bh);x.fillStyle=`rgb(${v},0,0)`;x.fillRect(i,bh,1,bh);x.fillStyle=`rgb(0,${v},0)`;x.fillRect(i,bh*2,1,bh);x.fillStyle=`rgb(0,0,${v})`;x.fillRect(i,bh*3,1,bh);}
+for(let y=0;y<bh;y++)for(let i=0;i<w;i++){x.fillStyle=(i+y)%2===0?'#000':'#fff';x.fillRect(i,bh*4+y,1,1);}
+x.fillStyle='rgba(0,240,255,.7)';x.font='11px Share Tech Mono';['Серый','Красный','Зелёный','Синий','Шахматная доска'].forEach((l,i)=>x.fillText(l,4,bh*i+14));}
 
-// ===================================================================
-// MONITOR TESTS (interactive)
-// ===================================================================
-let dpColors=['#ff0000','#00ff00','#0000ff','#ffffff','#000000','#ffff00','#ff00ff','#00ffff'];
-let dpIdx=0;
+function drawPat(){const c=document.getElementById('patCv');c.style.display='block';const x=c.getContext('2d'),w=c.width,h=c.height;
+for(let y=0;y<h/3;y++){x.fillStyle=y%2?'#000':'#fff';x.fillRect(0,y,w/2,1);}
+for(let i=0;i<w/2;i++){x.fillStyle=i%2?'#000':'#fff';x.fillRect(w/2+i,0,1,h/3);}
+['#f00','#0f0','#00f','#ff0','#f0f','#0ff','#fff','#888'].forEach((c2,i)=>{x.fillStyle=c2;x.fillRect(i*(w/8),h/3,w/8,h/3);});}
 
-function startDeadPixel(){
-dpIdx=0;
-const ov=document.getElementById('dpOverlay');
-ov.style.backgroundColor=dpColors[0];ov.classList.add('vis');
-try{document.documentElement.requestFullscreen().catch(()=>{});}catch(e){}
-}
-document.getElementById('dpOverlay').addEventListener('click',()=>{
-dpIdx++;if(dpIdx>=dpColors.length){exitDP();}
-else document.getElementById('dpOverlay').style.backgroundColor=dpColors[dpIdx];
-});
-document.addEventListener('keydown',e=>{
-if(!document.getElementById('dpOverlay').classList.contains('vis'))return;
-if(e.key===' '){e.preventDefault();dpIdx++;if(dpIdx>=dpColors.length)exitDP();
-else document.getElementById('dpOverlay').style.backgroundColor=dpColors[dpIdx];}
-else if(e.key==='Escape')exitDP();
-});
-function exitDP(){document.getElementById('dpOverlay').classList.remove('vis');if(document.fullscreenElement)document.exitFullscreen().catch(()=>{});}
+// ===============================================================
+// INTERACTIVE: MOUSE
+// ===============================================================
+let mAA=false,mAD={};
+function startMouseAcc(){const a=document.getElementById('accA');a.style.display='block';a.innerHTML='';const r=a.getBoundingClientRect(),w=r.width,h2=r.height;
+const dA=document.createElement('div');dA.style.cssText=`position:absolute;left:35px;top:${h2/2}px;width:16px;height:16px;background:var(--green);border-radius:50%;transform:translate(-50%,-50%);box-shadow:0 0 10px var(--green)`;a.appendChild(dA);
+const dB=document.createElement('div');dB.style.cssText=`position:absolute;right:35px;top:${h2/2}px;width:16px;height:16px;background:var(--red);border-radius:50%;transform:translate(50%,-50%);box-shadow:0 0 10px var(--red)`;a.appendChild(dB);
+const cv=document.createElement('canvas');cv.width=r.width;cv.height=r.height;cv.style.cssText='position:absolute;inset:0;width:100%;height:100%';a.appendChild(cv);const ctx=cv.getContext('2d');
+mAD={pts:[],st:0,dist:0,sp:{x:45,y:h2/2},ep:{x:w-45,y:h2/2}};mAA=true;let lx=null,ly=null;
+a.onmousemove=e=>{if(!mAA)return;const rc=a.getBoundingClientRect(),x=e.clientX-rc.left,y=e.clientY-rc.top;
+if(!mAD.pts.length)mAD.st=performance.now();mAD.pts.push({x,y});
+if(lx!==null){mAD.dist+=Math.sqrt((x-lx)**2+(y-ly)**2);ctx.beginPath();ctx.moveTo(lx,ly);ctx.lineTo(x,y);ctx.strokeStyle='rgba(0,240,255,.5)';ctx.lineWidth=2;ctx.stroke();}
+lx=x;ly=y;if(Math.sqrt((x-mAD.ep.x)**2+(y-mAD.ep.y)**2)<18&&mAD.pts.length>10){mAA=false;
+const el=performance.now()-mAD.st,ideal=Math.sqrt((mAD.ep.x-mAD.sp.x)**2+(mAD.ep.y-mAD.sp.y)**2),dev=((mAD.dist/ideal)-1)*100;
+document.getElementById('accR').innerHTML=`<table class="tbl"><tr><td>Пройдено</td><td>${mAD.dist.toFixed(0)} px</td></tr><tr><td>Идеальное</td><td>${ideal.toFixed(0)} px</td></tr><tr><td>Отклонение</td><td>${dev.toFixed(1)}%</td></tr><tr><td>Скорость</td><td>${(mAD.dist/el).toFixed(3)} px/мс</td></tr></table>`;
+document.getElementById('accR').classList.add('vis');}};}
 
-function drawGradients(){
-const c=document.getElementById('gradCanvas');c.style.display='block';
-document.getElementById('gradHint').style.display='block';
-const ctx=c.getContext('2d');const w=c.width,h=c.height;ctx.clearRect(0,0,w,h);
-const bh=h/5;
-for(let x=0;x<w;x++){const v=Math.round(x/w*255);ctx.fillStyle=`rgb(${v},${v},${v})`;ctx.fillRect(x,0,1,bh);}
-for(let x=0;x<w;x++){const v=Math.round(x/w*255);ctx.fillStyle=`rgb(${v},0,0)`;ctx.fillRect(x,bh,1,bh);}
-for(let x=0;x<w;x++){const v=Math.round(x/w*255);ctx.fillStyle=`rgb(0,${v},0)`;ctx.fillRect(x,bh*2,1,bh);}
-for(let x=0;x<w;x++){const v=Math.round(x/w*255);ctx.fillStyle=`rgb(0,0,${v})`;ctx.fillRect(x,bh*3,1,bh);}
-for(let y=0;y<bh;y++)for(let x=0;x<w;x++){ctx.fillStyle=(x+y)%2===0?'#000':'#fff';ctx.fillRect(x,bh*4+y,1,1);}
-ctx.fillStyle='rgba(0,240,255,.8)';ctx.font='12px Share Tech Mono';
-['Серый','Красный','Зелёный','Синий','Шахматная доска'].forEach((l,i)=>ctx.fillText(l,5,bh*i+16));
-}
+let pollAct=false;
+function startPoll(){document.getElementById('btnPoll').disabled=true;const a=document.getElementById('pollA');a.style.display='block';a.innerHTML='<div style="text-align:center;padding-top:70px;color:var(--dim)">Быстро двигайте!</div>';document.getElementById('pollP').classList.add('vis');
+const iv=[];let lt=null;pollAct=true;const s=performance.now();
+a.onmousemove=e=>{if(!pollAct)return;const now=performance.now();if(lt!==null)iv.push(now-lt);lt=now;document.getElementById('pollF').style.width=((now-s)/3000*100)+'%';
+if(now-s>=3000){pollAct=false;a.onmousemove=null;document.getElementById('pollP').classList.remove('vis');document.getElementById('btnPoll').disabled=false;
+if(iv.length<10){document.getElementById('pollR').innerHTML='<p style="color:var(--red)">Мало данных!</p>';document.getElementById('pollR').classList.add('vis');return;}
+const avg=iv.reduce((a2,b)=>a2+b)/iv.length,hz=Math.round(1000/avg);
+document.getElementById('pollR').innerHTML=`<table class="tbl"><tr><td>Событий</td><td>${iv.length}</td></tr><tr><td>Ср. интервал</td><td>${avg.toFixed(2)} мс</td></tr></table><div style="text-align:center;font-family:var(--ft);font-size:1.2rem;color:var(--cyan);margin-top:8px">~${hz} Hz</div>`;
+document.getElementById('pollR').classList.add('vis');}};
+setTimeout(()=>{if(pollAct){pollAct=false;a.onmousemove=null;document.getElementById('btnPoll').disabled=false;}},4000);}
 
-function drawPatterns(){
-const c=document.getElementById('patCanvas');c.style.display='block';
-const ctx=c.getContext('2d');const w=c.width,h=c.height;ctx.clearRect(0,0,w,h);
-// Horizontal lines
-for(let y=0;y<h/3;y++){ctx.fillStyle=y%2===0?'#fff':'#000';ctx.fillRect(0,y,w/2,1);}
-// Vertical lines
-for(let x=0;x<w/2;x++){ctx.fillStyle=x%2===0?'#fff':'#000';ctx.fillRect(w/2+x,0,1,h/3);}
-// Color patches
-const colors=['#ff0000','#00ff00','#0000ff','#ffff00','#ff00ff','#00ffff','#ffffff','#808080'];
-const pw=w/colors.length;
-colors.forEach((c2,i)=>{ctx.fillStyle=c2;ctx.fillRect(i*pw,h/3,pw,h/3);});
-// Cross-hatch
-for(let i=0;i<w;i+=4){ctx.strokeStyle='rgba(255,255,255,.5)';ctx.beginPath();ctx.moveTo(i,h*2/3);ctx.lineTo(i,h);ctx.stroke();}
-for(let i=h*2/3;i<h;i+=4){ctx.beginPath();ctx.moveTo(0,i);ctx.lineTo(w,i);ctx.stroke();}
-ctx.fillStyle='var(--cyan)';ctx.font='12px Share Tech Mono';
-ctx.fillText('Горизонтальные полосы | Вертикальные полосы',5,h/3-5);
-ctx.fillText('Цветовые патчи',5,h*2/3-5);
-}
+let clkTs=[],mDT=null,stT=null;
+function clkD(){mDT=performance.now();stT=setTimeout(()=>{document.getElementById('clkR').innerHTML='<p style="color:var(--red)">⚠️ Залипание >3с</p>';document.getElementById('clkR').classList.add('vis');},3000);}
+function clkU(){clearTimeout(stT);if(!mDT)return;const now=performance.now(),hold=now-mDT;clkTs.push(now);
+let h2=`<p>Удержание: <span style="color:var(--cyan)">${hold.toFixed(1)} мс</span></p>`;
+if(clkTs.length>=2){const iv=clkTs[clkTs.length-1]-clkTs[clkTs.length-2];h2+=`<p>Интервал: <span style="color:var(--cyan)">${iv.toFixed(1)} мс</span></p>`;if(iv<400)h2+=`<p style="color:var(--green)">✅ Двойной клик!</p>`;}
+document.getElementById('clkR').innerHTML=h2;document.getElementById('clkR').classList.add('vis');mDT=null;}
 
-// ===================================================================
-// MOUSE TESTS (interactive)
-// ===================================================================
-let mAccActive=false,mAccData={};
+let cpsAct=false,cpsN=0,cpsS=0;
+function startCps(){const btn=document.getElementById('btnCps');
+if(!cpsAct){cpsAct=true;cpsN=0;cpsS=performance.now();btn.textContent='КЛИКАЙТЕ!';document.getElementById('cpsP').classList.add('vis');
+const ti=setInterval(()=>{const el=performance.now()-cpsS;document.getElementById('cpsF').style.width=(el/10000*100)+'%';
+if(el>=10000){clearInterval(ti);cpsAct=false;btn.textContent='▶ CPS тест';document.getElementById('cpsP').classList.remove('vis');
+document.getElementById('cpsR').innerHTML=`<div style="text-align:center"><div style="font-family:var(--ft);font-size:1.8rem;color:var(--cyan)">${(cpsN/10).toFixed(1)} CPS</div><div style="color:var(--dim);font-size:.75rem">${cpsN} кликов за 10с</div></div>`;
+document.getElementById('cpsR').classList.add('vis');}},100);
+}else{cpsN++;}}
 
-function startMouseAcc(){
-const area=document.getElementById('accArea');area.style.display='block';area.innerHTML='';
-const rect=area.getBoundingClientRect();const w=rect.width,h=rect.height;
-
-const dotA=document.createElement('div');
-dotA.style.cssText=`position:absolute;left:40px;top:${h/2}px;width:18px;height:18px;background:var(--green);border-radius:50%;transform:translate(-50%,-50%);box-shadow:0 0 12px var(--green)`;
-area.appendChild(dotA);
-const dotB=document.createElement('div');
-dotB.style.cssText=`position:absolute;right:40px;top:${h/2}px;width:18px;height:18px;background:var(--red);border-radius:50%;transform:translate(50%,-50%);box-shadow:0 0 12px var(--red)`;
-area.appendChild(dotB);
-
-const cv=document.createElement('canvas');cv.width=rect.width;cv.height=rect.height;
-cv.style.cssText='position:absolute;top:0;left:0;width:100%;height:100%';area.appendChild(cv);
-const ctx=cv.getContext('2d');
-
-mAccData={pts:[],st:0,dist:0,sp:{x:50,y:h/2},ep:{x:w-50,y:h/2}};mAccActive=true;
-let lx=null,ly=null;
-
-area.onmousemove=e=>{
-if(!mAccActive)return;
-const r=area.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top;
-if(!mAccData.pts.length)mAccData.st=performance.now();
-mAccData.pts.push({x,y,t:performance.now()});
-if(lx!==null){const dx=x-lx,dy=y-ly;mAccData.dist+=Math.sqrt(dx*dx+dy*dy);
-ctx.beginPath();ctx.moveTo(lx,ly);ctx.lineTo(x,y);ctx.strokeStyle='rgba(0,240,255,.5)';ctx.lineWidth=2;ctx.stroke();}
-lx=x;ly=y;
-const de=Math.sqrt((x-mAccData.ep.x)**2+(y-mAccData.ep.y)**2);
-if(de<20&&mAccData.pts.length>10){mAccActive=false;finishMouseAcc();}
-};
-}
-
-function finishMouseAcc(){
-const d=mAccData,el=performance.now()-d.st;
-const ideal=Math.sqrt((d.ep.x-d.sp.x)**2+(d.ep.y-d.sp.y)**2);
-const dev=((d.dist/ideal)-1)*100;
-let h=`<table class="tbl"><tr><td>📏 Пройдено</td><td>${d.dist.toFixed(1)} px</td></tr>
-<tr><td>📐 Идеальное</td><td>${ideal.toFixed(1)} px</td></tr>
-<tr><td>📊 Отклонение</td><td>${dev.toFixed(1)}%</td></tr>
-<tr><td>⚡ Скорость</td><td>${(d.dist/el).toFixed(3)} px/мс</td></tr>
-<tr><td>⏱️ Время</td><td>${(el/1000).toFixed(2)} с</td></tr></table>`;
-document.getElementById('accRes').innerHTML=h;document.getElementById('accRes').classList.add('vis');
-}
-
-let pollActive=false;
-function startPolling(){
-const btn=document.getElementById('btnPoll');btn.disabled=true;
-const area=document.getElementById('pollArea');area.style.display='block';
-area.innerHTML='<div style="text-align:center;padding-top:80px;color:var(--text-dim)">Быстро двигайте мышью!</div>';
-document.getElementById('pollProg').classList.add('vis');
-const ivls=[];let lt=null;pollActive=true;const st=performance.now();
-area.onmousemove=e=>{
-if(!pollActive)return;const now=performance.now();
-if(lt!==null)ivls.push(now-lt);lt=now;
-document.getElementById('pollProgFill').style.width=((now-st)/3000*100)+'%';
-if(now-st>=3000){pollActive=false;area.onmousemove=null;finishPolling(ivls);btn.disabled=false;}
-};
-setTimeout(()=>{if(pollActive){pollActive=false;area.onmousemove=null;finishPolling(ivls);btn.disabled=false;}},4000);
-}
-
-function finishPolling(ivls){
-document.getElementById('pollProg').classList.remove('vis');
-if(ivls.length<10){document.getElementById('pollRes').innerHTML='<p style="color:var(--red)">Мало данных!</p>';document.getElementById('pollRes').classList.add('vis');return;}
-const avg=ivls.reduce((a,b)=>a+b)/ivls.length;const hz=Math.round(1000/avg);
-let h=`<table class="tbl"><tr><td>📊 Событий</td><td>${ivls.length}</td></tr>
-<tr><td>⏱️ Средний интервал</td><td>${avg.toFixed(2)} мс</td></tr>
-<tr><td>⏱️ Мин</td><td>${Math.min(...ivls).toFixed(2)} мс</td></tr></table>
-<div style="text-align:center;margin-top:10px;font-family:var(--ft);font-size:1.3rem;color:var(--cyan)">~${hz} Hz</div>`;
-document.getElementById('pollRes').innerHTML=h;document.getElementById('pollRes').classList.add('vis');
-}
-
-let clickTimes=[],mDownT=null,stickyT=null;
-function clickDown(){
-mDownT=performance.now();
-stickyT=setTimeout(()=>{
-document.getElementById('clickRes').innerHTML='<p style="color:var(--red)">⚠️ Залипание! Кнопка зажата >3с</p>';
-document.getElementById('clickRes').classList.add('vis');
-},3000);
-}
-function clickUp(){
-clearTimeout(stickyT);if(!mDownT)return;
-const now=performance.now(),hold=now-mDownT;clickTimes.push(now);
-let h=`<p>Удержание: <span style="color:var(--cyan)">${hold.toFixed(1)} мс</span></p>`;
-if(clickTimes.length>=2){const iv=clickTimes[clickTimes.length-1]-clickTimes[clickTimes.length-2];
-h+=`<p>Интервал: <span style="color:var(--cyan)">${iv.toFixed(1)} мс</span></p>`;
-if(iv<400)h+=`<p style="color:var(--green)">✅ Двойной клик!</p>`;}
-document.getElementById('clickRes').innerHTML=h;document.getElementById('clickRes').classList.add('vis');mDownT=null;
-}
-
-// CPS test
-let cpsActive=false,cpsClicks=0,cpsStart=0;
-function startCps(){
-const btn=document.getElementById('btnCps');
-if(!cpsActive){
-cpsActive=true;cpsClicks=0;cpsStart=performance.now();
-btn.textContent='КЛИКАЙТЕ!';btn.style.fontSize='1.2rem';
-document.getElementById('cpsProg').classList.add('vis');
-const timer=setInterval(()=>{
-const el=performance.now()-cpsStart;
-document.getElementById('cpsProgFill').style.width=(el/10000*100)+'%';
-if(el>=10000){
-clearInterval(timer);cpsActive=false;btn.textContent='▶ Тест скорости кликов';btn.style.fontSize='';
-document.getElementById('cpsProg').classList.remove('vis');
-const cps=(cpsClicks/10).toFixed(1);
-document.getElementById('cpsRes').innerHTML=`<div style="text-align:center">
-<div style="font-family:var(--ft);font-size:2rem;color:var(--cyan)">${cps} CPS</div>
-<div style="color:var(--text-dim);font-size:.8rem">${cpsClicks} кликов за 10 секунд</div></div>`;
-document.getElementById('cpsRes').classList.add('vis');
-}
-},100);
-}else{cpsClicks++;}
-}
-
-// ===================================================================
+// ===============================================================
 // KEYBOARD
-// ===================================================================
-const kbRows=[
-[{c:'Escape',l:'Esc',w:1},{c:'F1',l:'F1',w:1},{c:'F2',l:'F2',w:1},{c:'F3',l:'F3',w:1},{c:'F4',l:'F4',w:1},{c:'F5',l:'F5',w:1},{c:'F6',l:'F6',w:1},{c:'F7',l:'F7',w:1},{c:'F8',l:'F8',w:1},{c:'F9',l:'F9',w:1},{c:'F10',l:'F10',w:1},{c:'F11',l:'F11',w:1},{c:'F12',l:'F12',w:1}],
-[{c:'Backquote',l:'`',w:1},{c:'Digit1',l:'1',w:1},{c:'Digit2',l:'2',w:1},{c:'Digit3',l:'3',w:1},{c:'Digit4',l:'4',w:1},{c:'Digit5',l:'5',w:1},{c:'Digit6',l:'6',w:1},{c:'Digit7',l:'7',w:1},{c:'Digit8',l:'8',w:1},{c:'Digit9',l:'9',w:1},{c:'Digit0',l:'0',w:1},{c:'Minus',l:'-',w:1},{c:'Equal',l:'=',w:1},{c:'Backspace',l:'⌫',w:2}],
-[{c:'Tab',l:'Tab',w:1.5},{c:'KeyQ',l:'Q',w:1},{c:'KeyW',l:'W',w:1},{c:'KeyE',l:'E',w:1},{c:'KeyR',l:'R',w:1},{c:'KeyT',l:'T',w:1},{c:'KeyY',l:'Y',w:1},{c:'KeyU',l:'U',w:1},{c:'KeyI',l:'I',w:1},{c:'KeyO',l:'O',w:1},{c:'KeyP',l:'P',w:1},{c:'BracketLeft',l:'[',w:1},{c:'BracketRight',l:']',w:1},{c:'Backslash',l:'\\',w:1.5}],
-[{c:'CapsLock',l:'Caps',w:1.8},{c:'KeyA',l:'A',w:1},{c:'KeyS',l:'S',w:1},{c:'KeyD',l:'D',w:1},{c:'KeyF',l:'F',w:1},{c:'KeyG',l:'G',w:1},{c:'KeyH',l:'H',w:1},{c:'KeyJ',l:'J',w:1},{c:'KeyK',l:'K',w:1},{c:'KeyL',l:'L',w:1},{c:'Semicolon',l:';',w:1},{c:'Quote',l:"'",w:1},{c:'Enter',l:'Enter',w:2.2}],
-[{c:'ShiftLeft',l:'Shift',w:2.3},{c:'KeyZ',l:'Z',w:1},{c:'KeyX',l:'X',w:1},{c:'KeyC',l:'C',w:1},{c:'KeyV',l:'V',w:1},{c:'KeyB',l:'B',w:1},{c:'KeyN',l:'N',w:1},{c:'KeyM',l:'M',w:1},{c:'Comma',l:',',w:1},{c:'Period',l:'.',w:1},{c:'Slash',l:'/',w:1},{c:'ShiftRight',l:'Shift',w:2.7}],
-[{c:'ControlLeft',l:'Ctrl',w:1.5},{c:'MetaLeft',l:'Win',w:1.2},{c:'AltLeft',l:'Alt',w:1.2},{c:'Space',l:'Space',w:6.2},{c:'AltRight',l:'Alt',w:1.2},{c:'MetaRight',l:'Win',w:1.2},{c:'ControlRight',l:'Ctrl',w:1.5}]
-];
-let kCount=0;const kPressed=new Set(),kEver=new Set(),kTimers={};
+// ===============================================================
+const kbR=[[{c:'Escape',l:'Esc',w:1},{c:'F1',l:'F1',w:1},{c:'F2',l:'F2',w:1},{c:'F3',l:'F3',w:1},{c:'F4',l:'F4',w:1},{c:'F5',l:'F5',w:1},{c:'F6',l:'F6',w:1},{c:'F7',l:'F7',w:1},{c:'F8',l:'F8',w:1},{c:'F9',l:'F9',w:1},{c:'F10',l:'F10',w:1},{c:'F11',l:'F11',w:1},{c:'F12',l:'F12',w:1}],[{c:'Backquote',l:'`',w:1},{c:'Digit1',l:'1',w:1},{c:'Digit2',l:'2',w:1},{c:'Digit3',l:'3',w:1},{c:'Digit4',l:'4',w:1},{c:'Digit5',l:'5',w:1},{c:'Digit6',l:'6',w:1},{c:'Digit7',l:'7',w:1},{c:'Digit8',l:'8',w:1},{c:'Digit9',l:'9',w:1},{c:'Digit0',l:'0',w:1},{c:'Minus',l:'-',w:1},{c:'Equal',l:'=',w:1},{c:'Backspace',l:'⌫',w:2}],[{c:'Tab',l:'Tab',w:1.5},{c:'KeyQ',l:'Q',w:1},{c:'KeyW',l:'W',w:1},{c:'KeyE',l:'E',w:1},{c:'KeyR',l:'R',w:1},{c:'KeyT',l:'T',w:1},{c:'KeyY',l:'Y',w:1},{c:'KeyU',l:'U',w:1},{c:'KeyI',l:'I',w:1},{c:'KeyO',l:'O',w:1},{c:'KeyP',l:'P',w:1},{c:'BracketLeft',l:'[',w:1},{c:'BracketRight',l:']',w:1},{c:'Backslash',l:'\\',w:1.5}],[{c:'CapsLock',l:'Caps',w:1.8},{c:'KeyA',l:'A',w:1},{c:'KeyS',l:'S',w:1},{c:'KeyD',l:'D',w:1},{c:'KeyF',l:'F',w:1},{c:'KeyG',l:'G',w:1},{c:'KeyH',l:'H',w:1},{c:'KeyJ',l:'J',w:1},{c:'KeyK',l:'K',w:1},{c:'KeyL',l:'L',w:1},{c:'Semicolon',l:';',w:1},{c:'Quote',l:"'",w:1},{c:'Enter',l:'Enter',w:2.2}],[{c:'ShiftLeft',l:'Shift',w:2.3},{c:'KeyZ',l:'Z',w:1},{c:'KeyX',l:'X',w:1},{c:'KeyC',l:'C',w:1},{c:'KeyV',l:'V',w:1},{c:'KeyB',l:'B',w:1},{c:'KeyN',l:'N',w:1},{c:'KeyM',l:'M',w:1},{c:'Comma',l:',',w:1},{c:'Period',l:'.',w:1},{c:'Slash',l:'/',w:1},{c:'ShiftRight',l:'Shift',w:2.7}],[{c:'ControlLeft',l:'Ctrl',w:1.5},{c:'MetaLeft',l:'Win',w:1.2},{c:'AltLeft',l:'Alt',w:1.2},{c:'Space',l:'Space',w:6.2},{c:'AltRight',l:'Alt',w:1.2},{c:'MetaRight',l:'Win',w:1.2},{c:'ControlRight',l:'Ctrl',w:1.5}]];
+let kN=0;const kPr=new Set(),kTm={};
+(function(){const el=document.getElementById('kbL');kbR.forEach(row=>{const rd=document.createElement('div');rd.className='kb-r';row.forEach(k=>{const d=document.createElement('div');d.className='kb-k';d.id='k-'+k.c;d.textContent=k.l;d.style.minWidth=(k.w*34+(k.w-1)*3)+'px';rd.appendChild(d);});el.appendChild(rd);});})();
+document.addEventListener('keydown',e=>{if(document.getElementById('dpOv').classList.contains('vis'))return;const tag=e.target.tagName;if(tag!=='INPUT'&&tag!=='TEXTAREA')e.preventDefault();const c=e.code;if(!kPr.has(c)){kN++;document.getElementById('kCnt').textContent=kN;}kPr.add(c);const el=document.getElementById('k-'+c);if(el){el.classList.add('pr','was');}document.getElementById('kK').textContent=e.key;document.getElementById('kC').textContent=e.code;document.getElementById('kKC').textContent=e.keyCode;document.getElementById('kH').textContent=[...kPr].join(', ')||'—';if(!kTm[c])kTm[c]=setTimeout(()=>{document.getElementById('kSt').style.display='block';document.getElementById('kSt').textContent='⚠️ Залипание: '+c;},3000);});
+document.addEventListener('keyup',e=>{const c=e.code;kPr.delete(c);const el=document.getElementById('k-'+c);if(el)el.classList.remove('pr');document.getElementById('kH').textContent=kPr.size?[...kPr].join(', '):'—';if(kTm[c]){clearTimeout(kTm[c]);delete kTm[c];}document.getElementById('kSt').style.display='none';});
 
-function buildKB(){
-const el=document.getElementById('kbLayout');el.innerHTML='';
-kbRows.forEach(row=>{const rd=document.createElement('div');rd.className='kb-r';
-row.forEach(k=>{const kd=document.createElement('div');kd.className='kb-k';kd.id='k-'+k.c;kd.textContent=k.l;
-kd.style.minWidth=(k.w*36+(k.w-1)*3)+'px';rd.appendChild(kd);});el.appendChild(rd);});
-}
-buildKB();
-
-document.addEventListener('keydown',e=>{
-if(document.getElementById('dpOverlay').classList.contains('vis'))return;
-// Don't prevent if in audio freq slider
-const tag=e.target.tagName;
-if(tag!=='INPUT'&&tag!=='TEXTAREA')e.preventDefault();
-const c=e.code;
-if(!kPressed.has(c)){kCount++;document.getElementById('kCnt').textContent=kCount;}
-kPressed.add(c);kEver.add(c);
-const el=document.getElementById('k-'+c);if(el){el.classList.add('pressed','was');}
-document.getElementById('kKey').textContent=e.key;
-document.getElementById('kCode').textContent=e.code;
-document.getElementById('kKC').textContent=e.keyCode;
-document.getElementById('kHeld').textContent=[...kPressed].join(', ')||'—';
-if(!kTimers[c])kTimers[c]=setTimeout(()=>{
-document.getElementById('kSticky').style.display='block';
-document.getElementById('kSticky').textContent='⚠️ Залипание: '+c;
-},3000);
-});
-document.addEventListener('keyup',e=>{
-const c=e.code;kPressed.delete(c);
-const el=document.getElementById('k-'+c);if(el)el.classList.remove('pressed');
-document.getElementById('kHeld').textContent=kPressed.size?[...kPressed].join(', '):'—';
-if(kTimers[c]){clearTimeout(kTimers[c]);delete kTimers[c];}
-document.getElementById('kSticky').style.display='none';
-});
-
-// ===================================================================
+// ===============================================================
 // AUDIO
-// ===================================================================
-function ensureAudio(){
-if(!audioCtx||audioCtx.state==='closed'){
-try{audioCtx=new(window.AudioContext||window.webkitAudioContext)();
-analyser=audioCtx.createAnalyser();analyser.fftSize=2048;analyser.connect(audioCtx.destination);
-}catch(e){alert('Web Audio не поддерживается');return false;}}
-if(audioCtx.state==='suspended')audioCtx.resume();return true;
-}
-function stopAudio(){
-if(curOsc){try{curOsc.stop();}catch(e){}curOsc=null;}
-curGain=null;if(audioAF){cancelAnimationFrame(audioAF);audioAF=null;}
-}
-function playChannel(pan){
-if(!ensureAudio())return;stopAudio();
-curOsc=audioCtx.createOscillator();curGain=audioCtx.createGain();
-const p=audioCtx.createStereoPanner();
-curOsc.type='sine';curOsc.frequency.value=440;curGain.gain.value=.3;p.pan.value=pan;
-curOsc.connect(curGain);curGain.connect(p);p.connect(analyser);curOsc.start();
-startViz('vizCanvas1');
-}
-function playFreq(){
-if(!ensureAudio())return;stopAudio();
-const f=sliderToFreq(parseInt(document.getElementById('freqSlider').value));
-curOsc=audioCtx.createOscillator();curGain=audioCtx.createGain();
-curOsc.type='sine';curOsc.frequency.value=f;curGain.gain.value=.3;
-curOsc.connect(curGain);curGain.connect(analyser);curOsc.start();
-startViz('vizCanvas2');
-}
-function sliderToFreq(v){const mn=Math.log10(20),mx=Math.log10(20000);return Math.round(10**(mn+(v/1000)*(mx-mn)));}
-function freqToNote(f){const n=['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'];const nn=12*Math.log2(f/440)+69;const ni=Math.round(nn)%12;const oct=Math.floor(Math.round(nn)/12)-1;return n[ni<0?ni+12:ni]+oct;}
-function updateFreq(v){
-const f=sliderToFreq(parseInt(v));
-document.getElementById('freqDisp').textContent=f+' Hz — '+freqToNote(f);
-if(curOsc&&audioCtx)curOsc.frequency.setValueAtTime(f,audioCtx.currentTime);
-}
-function startViz(id){
-const cv=document.getElementById(id),ctx=cv.getContext('2d');
-cv.width=cv.clientWidth;cv.height=cv.clientHeight||100;
-const buf=new Uint8Array(analyser.frequencyBinCount);
-function draw(){audioAF=requestAnimationFrame(draw);analyser.getByteTimeDomainData(buf);
-ctx.fillStyle='rgba(10,10,15,.3)';ctx.fillRect(0,0,cv.width,cv.height);
-ctx.lineWidth=2;ctx.strokeStyle='#00f0ff';ctx.shadowColor='#00f0ff';ctx.shadowBlur=4;ctx.beginPath();
-const sw=cv.width/buf.length;let x=0;
-for(let i=0;i<buf.length;i++){const y=buf[i]/128*cv.height/2;i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);x+=sw;}
-ctx.stroke();ctx.shadowBlur=0;}
-draw();
-}
-
-// Init freq slider
-updateFreq(440);
+// ===============================================================
+function ensA(){if(!audioCtx||audioCtx.state==='closed'){try{audioCtx=new(window.AudioContext||window.webkitAudioContext)();analyser=audioCtx.createAnalyser();analyser.fftSize=2048;analyser.connect(audioCtx.destination);}catch(e){alert('Web Audio не поддерживается');return false;}}if(audioCtx.state==='suspended')audioCtx.resume();return true;}
+function stopA(){if(curOsc){try{curOsc.stop();}catch(e){}curOsc=null;}curGain=null;if(audioAF){cancelAnimationFrame(audioAF);audioAF=null;}}
+function playCh(pan){if(!ensA())return;stopA();curOsc=audioCtx.createOscillator();curGain=audioCtx.createGain();const p=audioCtx.createStereoPanner();curOsc.type='sine';curOsc.frequency.value=440;curGain.gain.value=.3;p.pan.value=pan;curOsc.connect(curGain);curGain.connect(p);p.connect(analyser);curOsc.start();vizStart('viz1');}
+function playF(){if(!ensA())return;stopA();const f=s2f(parseInt(document.getElementById('fS').value));curOsc=audioCtx.createOscillator();curGain=audioCtx.createGain();curOsc.type='sine';curOsc.frequency.value=f;curGain.gain.value=.3;curOsc.connect(curGain);curGain.connect(analyser);curOsc.start();vizStart('viz2');}
+function s2f(v){return Math.round(10**(Math.log10(20)+(v/1000)*(Math.log10(20000)-Math.log10(20))));}
+function f2n(f){const n=['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'];const nn=12*Math.log2(f/440)+69;const ni=Math.round(nn)%12;return n[ni<0?ni+12:ni]+(Math.floor(Math.round(nn)/12)-1);}
+function updF(v){const f=s2f(parseInt(v));document.getElementById('fD').textContent=f+' Hz — '+f2n(f);if(curOsc&&audioCtx)curOsc.frequency.setValueAtTime(f,audioCtx.currentTime);}
+function vizStart(id){const cv=document.getElementById(id),ctx=cv.getContext('2d');cv.width=cv.clientWidth;cv.height=cv.clientHeight||90;const buf=new Uint8Array(analyser.frequencyBinCount);
+function d(){audioAF=requestAnimationFrame(d);analyser.getByteTimeDomainData(buf);ctx.fillStyle='rgba(10,10,15,.3)';ctx.fillRect(0,0,cv.width,cv.height);ctx.lineWidth=2;ctx.strokeStyle='#00f0ff';ctx.shadowColor='#00f0ff';ctx.shadowBlur=3;ctx.beginPath();const sw=cv.width/buf.length;let x=0;for(let i=0;i<buf.length;i++){const y=buf[i]/128*cv.height/2;i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);x+=sw;}ctx.stroke();ctx.shadowBlur=0;}d();}
+updF(440);
 </script>
 </body>
 </html>
